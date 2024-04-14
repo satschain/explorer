@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -77,12 +78,23 @@ const BlocksPageContent = () => {
   return (
     <>
       <PageTitle title="Blocks" withTextAd/>
-      <RoutedTabs
-        tabs={ tabs }
-        tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }
-        rightSlot={ <BlocksTabSlot pagination={ pagination }/> }
-        stickyEnabled={ !isMobile }
-      />
+      <Box
+        bg="white"
+        borderTopRadius="2.5em"
+        padding={{
+          base: '1.5em',
+          md: '3em',
+        }}
+        paddingY="3em"
+      >
+        <RoutedTabs
+          tabs={ tabs }
+          type="parent_tabs"
+          tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }
+          rightSlot={ <BlocksTabSlot pagination={ pagination }/> }
+          stickyEnabled={ !isMobile }
+        />
+      </Box>
     </>
   );
 };
