@@ -5,6 +5,10 @@ import React from 'react';
 import { IoMenu } from 'react-icons/io5';
 import { MdArrowOutward } from 'react-icons/md';
 
+import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
+import NavLink from 'ui/snippets/navigation/NavLink';
+import NavLinkGroupDesktop from 'ui/snippets/navigation/NavLinkGroupDesktop';
+
 const HeaderLink: React.FC<LinkProps & { children?: React.ReactNode }> = (props) => {
   return (
     <Link color="black" fontSize="14px" fontWeight="500" _hover={{ color: 'black', textDecoration: 'underline' }} { ...props } >{ props.children }</Link>
@@ -12,7 +16,9 @@ const HeaderLink: React.FC<LinkProps & { children?: React.ReactNode }> = (props)
 };
 
 const Header = () => {
+  const { mainNavItems } = useNavItems();
   const [ showMobileMenu, setShowMobileMenu ] = React.useState(false);
+
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center" p="1.5em"
@@ -31,10 +37,17 @@ const Header = () => {
           px="1.5em"
           backgroundColor="white"
         >
-          <HeaderLink >DASHBOARD</HeaderLink>
+          { /* <HeaderLink >DASHBOARD</HeaderLink>
           <HeaderLink >DEPLOY SMART CONTRACT</HeaderLink>
           <HeaderLink >INTERACT WITH CONTRACT</HeaderLink>
-          <HeaderLink >WHITEPAPER</HeaderLink>
+          <HeaderLink >WHITEPAPER</HeaderLink> */ }
+          { mainNavItems.map((item) => {
+            if (isGroupItem(item)) {
+              return <NavLinkGroupDesktop key={ item.text } item={ item } isCollapsed={ false }/>;
+            } else {
+              return <NavLink key={ item.text } item={ item } isCollapsed={ false }/>;
+            }
+          }) }
         </Box>
         <Box display={{ base: 'none', md: 'block' }} >
           <Button display="flex" gap="7px" borderRadius="1.5em" backgroundColor="black" >
@@ -53,7 +66,14 @@ const Header = () => {
         </Button>
       </Box>
       { showMobileMenu && (
-        <Box display="flex" flexDirection="column" background="white" borderRadius="1.5em" padding="20px" >
+        <Box
+          display="flex"
+          flexDirection="column"
+          background="white"
+          borderRadius="1.5em"
+          padding="20px"
+          height="90vh"
+        >
           <Box display="flex" flexDirection="column" alignItems="center" gap="1em"
             borderRadius="1.5em" py="0.75em" px="1.5em" backgroundColor="white">
             <HeaderLink>DASHBOARD</HeaderLink>
