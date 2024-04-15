@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -77,7 +77,9 @@ const BlocksPageContent = () => {
 
   return (
     <>
-      <PageTitle title="Blocks" withTextAd/>
+      <Flex direction="column" paddingX={{ base: 6, lg: 12 }}>
+        <PageTitle title="Blocks" withTextAd/>
+      </Flex>
       <Box
         bg="white"
         borderTopRadius="2.5em"

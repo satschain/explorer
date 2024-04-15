@@ -24,6 +24,7 @@ interface Props {
 }
 
 const AddressTo = ({ to, isLoading, tokenHash = '' }: Props) => {
+
   const Entity = tokenHash ? AddressEntityWithTokenFilter : AddressEntity;
 
   return (
