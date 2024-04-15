@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Tr,
   Td,
@@ -6,8 +7,6 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import React from 'react';
-
-import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
 import useTimeAgoIncrement from 'lib/hooks/useTimeAgoIncrement';
@@ -26,7 +25,7 @@ import TxTranslationType from './TxTranslationType';
 import TxType from './TxType';
 
 type Props = {
-  tx: Transaction;
+  tx: any;
   showBlockInfo: boolean;
   currentAddress?: string;
   enableTimeIncrement?: boolean;

@@ -18,9 +18,9 @@ interface Props {
   isLoading?: boolean;
   top: number;
   page: number;
-  // socketInfoNum?: number;
-  // socketInfoAlert?: string;
-  // showSocketInfo?: boolean;
+  socketInfoNum?: number;
+  socketInfoAlert?: string;
+  showSocketInfo?: boolean;
 }
 
 const VALIDATOR_COL_WEIGHT = 23;
