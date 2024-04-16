@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Tr,
   Td,
@@ -23,7 +24,7 @@ import TxWatchListTags from 'ui/shared/tx/TxWatchListTags';
 import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
 
 import TxTranslationType from './TxTranslationType';
-import TxType from './TxType';
+// import TxType from './TxType';
 
 type Props = {
   tx: any;
@@ -78,7 +79,20 @@ const TxsTableItem = ({ tx, showBlockInfo, enableTimeIncrement, isLoading }: Pro
               translatationType={ tx.translation.data?.type }
             />
           ) : (
-            <TxType types={ tx.tx_types } isLoading={ isLoading }/>
+          // { tx.translation ? (
+          //   <TxTranslationType
+          //     types={ tx.tx_types }
+          //     isLoading={ isLoading || tx.translation.isLoading }
+          //     translatationType={ tx.translation.data?.type }
+          //   />
+          // ) : (
+          //   <TxType types={ tx.tx_types } isLoading={ isLoading }/>
+          // ) }
+            <TxStatus
+              status={ tx.status }
+              errorText={ tx.status === 'error' ? tx.result : undefined }
+              isLoading={ isLoading }
+            />
           ) }
           <TxStatus
             status={ tx.status }

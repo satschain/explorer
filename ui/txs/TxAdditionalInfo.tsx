@@ -44,6 +44,8 @@ const TxAdditionalInfo = ({ hash, tx, isMobile }: Props) => {
       <>
         { /* <AdditionalInfoButton onClick={ onOpen } isLoading={ isLoading } className={ className }/> */ }
 
+        { /* <AdditionalInfoButton onClick={ onOpen } isLoading={ isLoading } className={ className }/> */ }
+
         <Modal isOpen={ isOpen } onClose={ onClose } size="full">
           <ModalContent paddingTop={ 4 }>
             <ModalCloseButton/>
