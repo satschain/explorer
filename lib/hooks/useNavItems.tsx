@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { useRouter } from 'next/router';
 import React from 'react';
-import { FaCode } from 'react-icons/fa';
+import { IoCodeSlash } from 'react-icons/io5';
 
 import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/navigation-items';
 
@@ -39,7 +39,7 @@ export default function useNavItems(): ReturnType {
     const compiler: NavItem | null = {
       text: 'Compiler',
       nextRoute: { pathname: '/compiler' as const },
-      icon: <FaCode fontSize={ 20 }/>,
+      icon: <IoCodeSlash fontSize={ 20 } fontWeight={ 300 }/>,
       isActive: pathname === '/compiler',
     };
     const txs: NavItem | null = {
