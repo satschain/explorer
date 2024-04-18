@@ -38,15 +38,20 @@ export default function useNavItems(): ReturnType {
     };
     const compiler: NavItem | null = {
       text: 'Compiler',
-      nextRoute: { pathname: '/compiler' as const },
+      url: 'https://satschain.xyz/compiler',
       icon: <IoCodeSlash fontSize={ 20 } fontWeight={ 300 }/>,
-      isActive: pathname === '/compiler',
     };
     const txs: NavItem | null = {
       text: 'Transactions',
       nextRoute: { pathname: '/txs' as const },
       icon: 'transactions',
       isActive: pathname === '/txs' || pathname === '/tx/[hash]',
+    };
+    const tokens: NavItem | null = {
+      text: 'Tokens',
+      nextRoute: { pathname: '/tokens' as const },
+      icon: 'token',
+      isActive: pathname.startsWith('/token'),
     };
     // const verifiedContracts: NavItem | null =
     //  {
@@ -199,13 +204,8 @@ export default function useNavItems(): ReturnType {
     const mainNavItems: ReturnType['mainNavItems'] = [
       txs,
       blocks,
+      tokens,
       compiler,
-      {
-        text: 'Tokens',
-        nextRoute: { pathname: '/tokens' as const },
-        icon: 'token',
-        isActive: pathname.startsWith('/token'),
-      },
       // config.features.marketplace.isEnabled ? {
       //   text: 'DApps',
       //   nextRoute: { pathname: '/apps' as const },
