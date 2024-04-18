@@ -200,6 +200,12 @@ export default function useNavItems(): ReturnType {
       txs,
       blocks,
       compiler,
+      {
+        text: 'Tokens',
+        nextRoute: { pathname: '/tokens' as const },
+        icon: 'token',
+        isActive: pathname.startsWith('/token'),
+      },
       // config.features.marketplace.isEnabled ? {
       //   text: 'DApps',
       //   nextRoute: { pathname: '/apps' as const },
