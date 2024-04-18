@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import type { LinkProps } from '@chakra-ui/react';
-import { Box, Link, Button, Text, Flex } from '@chakra-ui/react';
+import { Box, Link, Button, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
 import { IoMenu } from 'react-icons/io5';
@@ -32,7 +32,7 @@ const Header = () => {
         p="1.5em"
       >
         <Box>
-          <Image src="/stats-logo.png" alt="Example" width={ 200 } height={ 300 }/>
+          <Image src={ useColorModeValue('/stats-logo.png', '/logo.png') } alt="Example" width={ 200 } height={ 300 }/>
         </Box>
         <Box
           display={{ base: 'none', md: 'flex' }}

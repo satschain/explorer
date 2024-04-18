@@ -94,24 +94,19 @@ const TxsTableItem = ({ tx, showBlockInfo, enableTimeIncrement, isLoading }: Pro
               isLoading={ isLoading }
             />
           ) }
-          <TxStatus
-            status={ tx.status }
-            errorText={ tx.status === 'error' ? tx.result : undefined }
-            isLoading={ isLoading }
-          />
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
         </VStack>
       </Td>
       <Td whiteSpace="nowrap">
         { tx.method && (
           <Tag
-            color={ tagColor }
             fontWeight={ 500 }
             fontSize="13px"
             padding="4px 16px"
             isLoading={ isLoading }
             isTruncated
             border="1px"
+            color={ tagColor }
             borderColor={ tagBorderColor }
             backgroundColor={ tagBg }
           >
