@@ -398,7 +398,7 @@ const ContractCode = ({ addressHash, noSocket }: Props) => {
             <InfoItem
               label="Verified at"
               content={ dayjs(data.verified_at).format('llll') }
-              wordBreak="break-word"
+              // wordBreak="break-word"
               isLoading={ isPlaceholderData }
             />
           ) }
@@ -406,7 +406,7 @@ const ContractCode = ({ addressHash, noSocket }: Props) => {
             <InfoItem
               label="Contract file path"
               content={ data.file_path }
-              wordBreak="break-word"
+              // wordBreak="break-word"
               isLoading={ isPlaceholderData }
             />
           ) }
