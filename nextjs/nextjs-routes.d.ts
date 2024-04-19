@@ -40,7 +40,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/graphiql">
     | StaticRoute<"/">
     | StaticRoute<"/login">
-    | StaticRoute<"/compiler">
     | StaticRoute<"/name-domains">
     | DynamicRoute<"/name-domains/[name]", { "name": string }>
     | DynamicRoute<"/op/[hash]", { "hash": string }>
