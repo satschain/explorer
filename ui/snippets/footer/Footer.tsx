@@ -279,7 +279,7 @@ const Footer = () => {
           width={ 200 }
           height={ 300 }
         />
-        <Flex
+        {/* <Flex
           color={ useColorModeValue('black', 'gray.1300') }
           fontSize={{ lg: '16px', base: '12px' }}
           fontWeight="600"
@@ -289,7 +289,7 @@ const Footer = () => {
             return <Link href={ ele.link } key={ index }>{ ele.label }</Link>;
           }) }
         </Flex>
-      </Flex>
+      </Flex> */}
       <Divider
         bg={ useColorModeValue('rgba(0, 0, 0, 0.5)', 'gray.1300') }
         height="1px"
