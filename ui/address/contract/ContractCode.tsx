@@ -369,7 +369,7 @@ const ContractCode = ({ addressHash, noSocket }: Props) => {
             <InfoItem
               label="EVM version"
               content={ data.evm_version }
-              textTransform="capitalize"
+              // textTransform="capitalize"
               isLoading={ isPlaceholderData }
             />
           ) }
