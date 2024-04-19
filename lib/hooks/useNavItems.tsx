@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -25,7 +26,7 @@ export function isInternalItem(item: NavItem): item is NavItemInternal {
 
 export default function useNavItems(): ReturnType {
   const router = useRouter();
-  const pathname = router.pathname;
+  const pathname: any = router.pathname;
 
   return React.useMemo(() => {
     // const blockchainNavItems: Array<NavItem> | Array<Array<NavItem>> = [];
@@ -36,7 +37,7 @@ export default function useNavItems(): ReturnType {
       icon: 'block',
       isActive: pathname === '/blocks' || pathname === '/block/[height_or_hash]',
     };
-    const compiler: NavItem | null = {
+    const compiler: any = {
       text: 'Compiler',
       nextRoute: { pathname: '/compiler' as const },
       icon: <IoCodeSlash fontSize={ 20 } fontWeight={ 300 }/>,

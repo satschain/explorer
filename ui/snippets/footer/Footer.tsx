@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import useNavItems from 'lib/hooks/useNavItems';
+
+import NavLink from '../navigation/NavLink';
 import FooterLinkItem from './FooterLinkItem';
 
 // import type { CustomLinksGroup } from 'types/footerLinks';
@@ -29,20 +32,7 @@ import FooterLinkItem from './FooterLinkItem';
 // const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
-  const footerLinks = [
-    {
-      label: 'Transactions',
-      link: '/txs',
-    },
-    {
-      label: 'Blocks',
-      link: '/blocks',
-    },
-    {
-      label: 'Compiler',
-      link: '/token',
-    },
-  ];
+  const { mainNavItems } = useNavItems();
 
   const SOCIAL_HANDLE = [
     {
@@ -285,8 +275,10 @@ const Footer = () => {
           fontWeight="600"
           gap={ 6 }
         >
-          { footerLinks?.map((ele, index) => {
-            return <Link href={ ele.link } key={ index }>{ ele.label }</Link>;
+          { mainNavItems?.map((item) => {
+            return (
+              <NavLink key={ item.text } item={ item } isCollapsed={ false }/>
+            );
           }) }
         </Flex>
       </Flex>
@@ -321,13 +313,13 @@ const Footer = () => {
         >
           <Text>© 2024 SatsChain. All rights reserved.</Text>
           <Link
-            href="/privacy"
+            href="/"
             style={{ textDecoration: 'underline !important' }}
           >
             Privacy Policy
           </Link>
           <Link
-            href="/terms"
+            href="/"
             style={{ textDecoration: 'underline !important' }}
           >
             Terms of Service
