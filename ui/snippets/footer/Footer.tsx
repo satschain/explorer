@@ -273,7 +273,8 @@ const Footer = () => {
           color={ useColorModeValue('black', 'gray.1300') }
           fontSize={{ lg: '16px', base: '12px' }}
           fontWeight="600"
-          gap={ 6 }
+          flexWrap="wrap"
+          gap={{ lg: '20px', base: '8px' }}
         >
           { mainNavItems?.map((item) => {
             return (
@@ -309,6 +310,7 @@ const Footer = () => {
             base: '10px',
             lg: '14px',
           }}
+          flexWrap="wrap"
           color={ useColorModeValue('rgba(0,0,0,1)', 'gray.1300') }
         >
           <Text>© 2024 SatsChain. All rights reserved.</Text>
