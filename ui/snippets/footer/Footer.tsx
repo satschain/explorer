@@ -264,81 +264,12 @@ const Footer = () => {
       bg={ useColorModeValue('rgba(245, 245, 244, 1)', '') }
       p={{ base: '16px', lg: '32px' }}
     >
-      <Flex
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-        gap={{
-          base: '12px',
-          lg: '24px',
-        }}
-      >
-        <Image
-          src={ useColorModeValue('/stats-logo.png', '/logo.png') }
-          alt="Logo"
-          width={ 200 }
-          height={ 300 }
-        />
-        {/* <Flex
-          color={ useColorModeValue('black', 'gray.1300') }
-          fontSize={{ lg: '16px', base: '12px' }}
-          fontWeight="600"
-          gap={ 6 }
-        >
-          { footerLinks?.map((ele, index) => {
-            return <Link href={ ele.link } key={ index }>{ ele.label }</Link>;
-          }) }
-        </Flex>
-      </Flex> */}
       <Divider
         bg={ useColorModeValue('rgba(0, 0, 0, 0.5)', 'gray.1300') }
         height="1px"
         mt={ 10 }
         mb={ 4 }
       />
-      <Flex
-        justifyContent={{ lg: 'space-between', base: 'center' }}
-        alignItems="center"
-        gap={ 4 }
-        flexDirection={{
-          base: 'column',
-          lg: 'row',
-        }}
-      >
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          gap={{
-            base: '4px',
-            lg: '12px',
-          }}
-          fontWeight={ 500 }
-          fontSize={{
-            base: '10px',
-            lg: '14px',
-          }}
-          color={ useColorModeValue('rgba(0,0,0,1)', 'gray.1300') }
-        >
-          <Text>© 2024 SatsChain. All rights reserved.</Text>
-          <Link
-            href="/privacy"
-            style={{ textDecoration: 'underline !important' }}
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/terms"
-            style={{ textDecoration: 'underline !important' }}
-          >
-            Terms of Service
-          </Link>
-        </Flex>
-        <Flex>
-          { SOCIAL_HANDLE?.map((link, index) => (
-            <FooterLinkItem key={ index } { ...link }/>
-          )) }
-        </Flex>
-      </Flex>
     </Box>
   );
 };
