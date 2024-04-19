@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import useNavItems from 'lib/hooks/useNavItems';
+
+import NavLink from '../navigation/NavLink';
 import FooterLinkItem from './FooterLinkItem';
 
 // import type { CustomLinksGroup } from 'types/footerLinks';
@@ -29,20 +32,7 @@ import FooterLinkItem from './FooterLinkItem';
 // const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
-  const footerLinks = [
-    {
-      label: 'Transactions',
-      link: '/txs',
-    },
-    {
-      label: 'Blocks',
-      link: '/blocks',
-    },
-    {
-      label: 'Compiler',
-      link: '/token',
-    },
-  ];
+  const { mainNavItems } = useNavItems();
 
   const SOCIAL_HANDLE = [
     {
@@ -261,15 +251,91 @@ const Footer = () => {
     //   </Grid>
     // </Grid>
     <Box
-      bg={ useColorModeValue('rgba(245, 245, 244, 1)', '') }
+      bg={ useColorModeValue('gray.1000', 'gray.1500') }
       p={{ base: '16px', lg: '32px' }}
+      maxH={ 300 }
     >
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+        gap={{
+          base: '12px',
+          lg: '24px',
+        }}
+      >
+        <Image
+          src={ useColorModeValue('/stats-logo.png', '/logo.png') }
+          alt="Logo"
+          width={ 200 }
+          height={ 300 }
+        />
+        <Flex
+          color={ useColorModeValue('black', 'gray.1300') }
+          fontSize={{ lg: '16px', base: '12px' }}
+          fontWeight="600"
+          flexWrap="wrap"
+          gap={{ lg: '20px', base: '8px' }}
+        >
+          { mainNavItems?.map((item) => {
+            return (
+              <div key={ item.text }>
+                <NavLink item={ item } isCollapsed={ false }/>
+              </div>
+            );
+          }) }
+        </Flex>
+      </Flex>
       <Divider
         bg={ useColorModeValue('rgba(0, 0, 0, 0.5)', 'gray.1300') }
         height="1px"
         mt={ 10 }
         mb={ 4 }
       />
+      <Flex
+        justifyContent={{ lg: 'space-between', base: 'center' }}
+        alignItems="center"
+        gap={ 4 }
+        flexDirection={{
+          base: 'column',
+          lg: 'row',
+        }}
+      >
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          gap={{
+            base: '4px',
+            lg: '12px',
+          }}
+          fontWeight={ 500 }
+          fontSize={{
+            base: '10px',
+            lg: '14px',
+          }}
+          flexWrap="wrap"
+          color={ useColorModeValue('rgba(0,0,0,1)', 'gray.1300') }
+        >
+          <Text>© 2024 SatsChain. All rights reserved.</Text>
+          <Link
+            href="/"
+            style={{ textDecoration: 'underline !important' }}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/"
+            style={{ textDecoration: 'underline !important' }}
+          >
+            Terms of Service
+          </Link>
+        </Flex>
+        <Flex>
+          { SOCIAL_HANDLE?.map((link, index) => (
+            <FooterLinkItem key={ index } { ...link }/>
+          )) }
+        </Flex>
+      </Flex>
     </Box>
   );
 };
