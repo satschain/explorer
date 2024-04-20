@@ -251,8 +251,9 @@ const Footer = () => {
     //   </Grid>
     // </Grid>
     <Box
-      bg={ useColorModeValue('rgba(245, 245, 244, 1)', '') }
+      bg={ useColorModeValue('gray.1000', 'gray.1500') }
       p={{ base: '16px', lg: '32px' }}
+      maxH={ 300 }
     >
       <Flex
         justifyContent="center"
@@ -278,7 +279,9 @@ const Footer = () => {
         >
           { mainNavItems?.map((item) => {
             return (
-              <NavLink key={ item.text } item={ item } isCollapsed={ false }/>
+              <div key={ item.text }>
+                <NavLink item={ item } isCollapsed={ false }/>
+              </div>
             );
           }) }
         </Flex>

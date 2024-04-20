@@ -8,6 +8,7 @@ import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/naviga
 
 import config from 'configs/app';
 // import { rightLineArrow } from 'lib/html-entities';
+// import { rightLineArrow } from 'lib/html-entities';
 import UserAvatar from 'ui/shared/UserAvatar';
 
 interface ReturnType {
@@ -30,6 +31,7 @@ export default function useNavItems(): ReturnType {
 
   return React.useMemo(() => {
     // const blockchainNavItems: Array<NavItem> | Array<Array<NavItem>> = [];
+    // const blockchainNavItems: Array<NavItem> | Array<Array<NavItem>> = [];
 
     const blocks: NavItem | null = {
       text: 'Blocks',
@@ -39,15 +41,20 @@ export default function useNavItems(): ReturnType {
     };
     const compiler: any = {
       text: 'Compiler',
-      nextRoute: { pathname: '/compiler' as const },
+      url: 'https://satschain.xyz/compiler',
       icon: <IoCodeSlash fontSize={ 20 } fontWeight={ 300 }/>,
-      isActive: pathname === '/compiler',
     };
     const txs: NavItem | null = {
       text: 'Transactions',
       nextRoute: { pathname: '/txs' as const },
       icon: 'transactions',
       isActive: pathname === '/txs' || pathname === '/tx/[hash]',
+    };
+    const tokens: NavItem | null = {
+      text: 'Tokens',
+      nextRoute: { pathname: '/tokens' as const },
+      icon: 'token',
+      isActive: pathname.startsWith('/token'),
     };
     // const verifiedContracts: NavItem | null =
     //  {
@@ -200,6 +207,7 @@ export default function useNavItems(): ReturnType {
     const mainNavItems: ReturnType['mainNavItems'] = [
       txs,
       blocks,
+      tokens,
       compiler,
       // config.features.marketplace.isEnabled ? {
       //   text: 'DApps',

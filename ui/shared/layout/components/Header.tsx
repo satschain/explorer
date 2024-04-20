@@ -22,6 +22,7 @@ const Header = () => {
   const { mainNavItems } = useNavItems();
   const [ showMobileMenu, setShowMobileMenu ] = React.useState(false);
   const { connect, address } = useUnisatWallet();
+  const bgColor = useColorModeValue('gray.1000', 'gray.1500');
 
   return (
     <>
@@ -43,7 +44,7 @@ const Header = () => {
           borderRadius="1.5em"
           py="0.75em"
           px="1.5em"
-          backgroundColor="white"
+          backgroundColor={ bgColor }
         >
           { /* <HeaderLink >DASHBOARD</HeaderLink>
           <HeaderLink >DEPLOY SMART CONTRACT</HeaderLink>
