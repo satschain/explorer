@@ -10,19 +10,12 @@ import * as Layout from './components';
 const LayoutHome = ({ children }: Props) => {
   return (
     <Layout.Container>
-      { /*<Layout.TopRow/>*/ }
       <Layout.Header/>
-      { /*<HeaderMobile isHomePage/>*/ }
       <Layout.MainArea>
-        { /*<Layout.SideBar/>*/ }
-        { /*<Layout.MainColumn*/ }
-        { /*  paddingTop={{ base: 3, lg: 6 }}*/ }
-        { /*>*/ }
         <HeaderAlert/>
         <AppErrorBoundary>
           { children }
         </AppErrorBoundary>
-        { /*</Layout.MainColumn>*/ }
       </Layout.MainArea>
       <Layout.Footer/>
     </Layout.Container>

@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-no-bind */
 import type { LinkProps } from '@chakra-ui/react';
 import { Box, Link, Button, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
-import { IoMenu } from 'react-icons/io5';
+import { IoCodeSlash, IoMenu } from 'react-icons/io5';
 import { MdArrowOutward } from 'react-icons/md';
 
-import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
 import useUnisatWallet from 'lib/useUnisatWallet';
-import NavLink from 'ui/snippets/navigation/NavLink';
-import NavLinkGroupDesktop from 'ui/snippets/navigation/NavLinkGroupDesktop';
+import IconSvg from 'ui/shared/IconSvg';
 import Settings from 'ui/snippets/topBar/settings/Settings';
 
 const HeaderLink: React.FC<LinkProps & { children?: React.ReactNode }> = (props) => {
@@ -19,9 +18,42 @@ const HeaderLink: React.FC<LinkProps & { children?: React.ReactNode }> = (props)
 };
 
 const Header = () => {
-  const { mainNavItems } = useNavItems();
   const [ showMobileMenu, setShowMobileMenu ] = React.useState(false);
   const { connect, address } = useUnisatWallet();
+  const bgColor = useColorModeValue('gray.1000', 'gray.1500');
+  const navTitleColor = useColorModeValue('gray.1200', 'gray.1300');
+
+  const PageLinks = [
+    {
+      text: 'Transactions',
+      link: '/txs',
+      icon: 'transactions',
+    },
+    {
+      text: 'Blocks',
+      link: '/blocks',
+      icon: 'block',
+    },
+    {
+      text: 'Tokens',
+      link: '/tokens',
+      icon: 'token',
+    },
+    {
+      text: 'Compiler',
+      link: 'https://satschain.xyz/compile',
+      iconComponent: <IoCodeSlash fontSize={ 20 } fontWeight={ 300 }/>,
+    },
+  ];
+
+  const NavIcon = ({ item }: any) => {
+    if (item.icon) {
+      return <IconSvg name={ item.icon } boxSize="20px" flexShrink={ 0 }/>;
+    }
+
+    return item.iconComponent;
+
+  };
 
   return (
     <>
@@ -32,38 +64,37 @@ const Header = () => {
         p="1.5em"
       >
         <Box>
-          <Image src={ useColorModeValue('/stats-logo.png', '/logo.png') } alt="Example" width={ 200 } height={ 300 }/>
+          <Image
+            src={ useColorModeValue('/stats-logo.png', '/logo.png') }
+            alt="Example"
+            width={ 200 }
+            height={ 300 }
+          />
         </Box>
         <Box
           display={{ base: 'none', md: 'flex' }}
           alignItems="center"
-          gap="1em"
+          gap="3em"
           border="1px"
           borderColor="#1414142E"
           borderRadius="1.5em"
           py="0.75em"
           px="1.5em"
-          backgroundColor="white"
+          backgroundColor={ bgColor }
         >
-          { /* <HeaderLink >DASHBOARD</HeaderLink>
-          <HeaderLink >DEPLOY SMART CONTRACT</HeaderLink>
-          <HeaderLink >INTERACT WITH CONTRACT</HeaderLink>
-          <HeaderLink >WHITEPAPER</HeaderLink> */ }
-          { mainNavItems.map((item) => {
-            if (isGroupItem(item)) {
-              return (
-                <NavLinkGroupDesktop
-                  key={ item.text }
-                  item={ item }
-                  isCollapsed={ false }
-                />
-              );
-            } else {
-              return (
-                <NavLink key={ item.text } item={ item } isCollapsed={ false }/>
-              );
-            }
-          }) }
+          { PageLinks?.map((ele) => (
+            <Box color={ navTitleColor } fontSize="14px" key={ ele.text }>
+              <a
+                href={ ele.link }
+                key={ ele.text }
+                style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+              >
+
+                <NavIcon item={ ele }/>
+                { ele.text }
+              </a>
+            </Box>
+          )) }
         </Box>
         <Flex gap={ 4 } alignItems="center">
           <Box
@@ -85,7 +116,7 @@ const Header = () => {
               ) : (
                 <>
                   <Text color="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)">
-                  CONNECT
+                    CONNECT
                   </Text>
                   <Box
                     background="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)"
