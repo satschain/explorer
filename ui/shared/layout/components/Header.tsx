@@ -22,7 +22,7 @@ const Header = () => {
   const { mainNavItems } = useNavItems();
   const [ showMobileMenu, setShowMobileMenu ] = React.useState(false);
   const { connect, address } = useUnisatWallet();
-  const bgColor = useColorModeValue('gray.1000', 'gray.1500');
+  const bgColor = useColorModeValue('gray.1000', '#171D28');
 
   return (
     <>
