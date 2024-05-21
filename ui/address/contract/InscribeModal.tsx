@@ -80,7 +80,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
       const response = await fetchOrder(orderId);
       if (response.ok) {
         const data: any = await response.json();
-        if (data?.data?.files?.[0]?.status !== 'pending') {
+        if (data?.data?.files?.[0]?.inscriptionId) {
           setInscriptionId(data?.data?.files?.[0]?.inscriptionId ?? '');
           setOpenSuccessModal(true);
         } else {
