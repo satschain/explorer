@@ -107,7 +107,7 @@ const Home = () => {
             bgClip="text"
             color="transparent"
           >
-            {config.chain.name} Explorer
+            SatsChain Explorer
           </Heading>
           <Box display={{ base: "none", lg: "flex" }}>
             {config.features.account.isEnabled && (
