@@ -26,8 +26,8 @@ const NavLink = ({ item, isCollapsed, className, onClick }: Props) => {
   const isMobile = useIsMobile();
   const colors = useColors();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const bgColor = useColorModeValue('gray.200', 'gray.1200');
-  const color = useColorModeValue('gray.1200', 'gray.1100');
+  const bgColor = useColorModeValue('black', 'gray.1200');
+  const color = useColorModeValue('balck', 'gray.1100');
 
   const isExpanded = isCollapsed === false;
   const isInternalLink = isInternalItem(item);
