@@ -12,8 +12,6 @@ import NavLink from 'ui/snippets/navigation/NavLink';
 import NavLinkGroupDesktop from 'ui/snippets/navigation/NavLinkGroupDesktop';
 import Settings from 'ui/snippets/topBar/settings/Settings';
 
-import Logo from '../../../../public/logo.png';
-
 const HeaderLink: React.FC<LinkProps & { children?: React.ReactNode }> = (props) => {
   return (
     <Link color="black" fontSize="14px" fontWeight="500" _hover={{ color: 'black', textDecoration: 'underline' }} { ...props } >{ props.children }</Link>
@@ -24,7 +22,7 @@ const Header = () => {
   const { mainNavItems } = useNavItems();
   const [ showMobileMenu, setShowMobileMenu ] = React.useState(false);
   const { connect, address } = useUnisatWallet();
-  const bgColor = useColorModeValue('#191919', 'gray.1500');
+  const bgColor = useColorModeValue('gray.1000', 'gray.1500');
 
   return (
     <>
@@ -32,13 +30,16 @@ const Header = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        p="1.5rem 4rem"
-        backgroundColor="#F2FAFF"
-        borderBottomRadius="40px"
+        p="1.5em"
       >
         <Box>
           <Link href="/">
-            <Image src={ Logo } alt="Example" width={ 40 } height={ 50 }/>
+            <Image
+              src={ useColorModeValue('/stats-logo.png', '/logo.png') }
+              alt="Example"
+              width={ 200 }
+              height={ 300 }
+            />
           </Link>
         </Box>
         <Box
@@ -47,12 +48,15 @@ const Header = () => {
           gap="1em"
           border="1px"
           borderColor="#1414142E"
-          color="#FFFFFF"
           borderRadius="1.5em"
           py="0.75em"
           px="1.5em"
           backgroundColor={ bgColor }
         >
+          { /* <HeaderLink >DASHBOARD</HeaderLink>
+          <HeaderLink >DEPLOY SMART CONTRACT</HeaderLink>
+          <HeaderLink >INTERACT WITH CONTRACT</HeaderLink>
+          <HeaderLink >WHITEPAPER</HeaderLink> */ }
           { mainNavItems.map((item) => {
             if (isGroupItem(item)) {
               return (
@@ -75,8 +79,8 @@ const Header = () => {
               display="flex"
               gap="7px"
               borderRadius="1.5em"
-              backgroundColor="#E75F00"
-              _hover={{ backgroundColor: '#E75F00' }}
+              backgroundColor="black"
+              _hover={{ backgroundColor: 'black' }}
             >
               { address ? (
                 <Text color="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)">
@@ -87,7 +91,11 @@ const Header = () => {
                   <Text color="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)">
                     CONNECT
                   </Text>
-                  <Box background="white" borderRadius="2em" p="4px">
+                  <Box
+                    background="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)"
+                    borderRadius="2em"
+                    p="4px"
+                  >
                     <MdArrowOutward color="black"/>
                   </Box>
                 </>

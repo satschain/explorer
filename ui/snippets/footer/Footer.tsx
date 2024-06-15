@@ -265,10 +265,10 @@ const Footer = () => {
         }}
       >
         <Image
-          src="/logo.png"
+          src={ useColorModeValue('/stats-logo.png', '/logo.png') }
           alt="Logo"
-          width={ 40 }
-          height={ 50 }
+          width={ 200 }
+          height={ 300 }
         />
         <Flex
           color={ useColorModeValue('black', 'gray.1300') }
@@ -276,9 +276,6 @@ const Footer = () => {
           fontWeight="600"
           flexWrap="wrap"
           gap={{ lg: '20px', base: '8px' }}
-          background="black"
-          padding="14px 20px"
-          borderRadius="24px"
         >
           { mainNavItems?.map((item) => {
             return (

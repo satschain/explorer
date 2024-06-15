@@ -2,18 +2,29 @@
 import {
   Box,
   Flex,
+  Select,
+  Tooltip,
   Text,
+  Grid,
   Button,
+  Input,
+  TableContainer,
+  Tr,
+  Td,
+  Th,
+  Table,
+  Thead,
+  Tbody,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-// import { BsArrowRightCircleFill } from "react-icons/bs";
-// import { FaRegQuestionCircle, FaRegEye, FaRegCopy } from "react-icons/fa";
-// import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
-// import { IoDocumentTextOutline, IoFilter } from "react-icons/io5";
-// import { TbFileTypeCsv } from "react-icons/tb";
+import { BsArrowRightCircleFill } from "react-icons/bs";
+import { FaRegQuestionCircle, FaRegEye, FaRegCopy } from "react-icons/fa";
+import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { IoDocumentTextOutline, IoFilter } from "react-icons/io5";
+import { TbFileTypeCsv } from "react-icons/tb";
 
 import type { SocketMessage } from "lib/socket/types";
 import type { TokenInfo } from "types/api/token";
@@ -35,13 +46,20 @@ import * as tokenStubs from "stubs/token";
 import { getTokenHoldersStub } from "stubs/token";
 import { generateListStub } from "stubs/utils";
 import AddressContract from "ui/address/AddressContract";
+import AddressQrCode from "ui/address/details/AddressQrCode";
+import AccountActionsMenu from "ui/shared/AccountActionsMenu/AccountActionsMenu";
+import AddressAddToWallet from "ui/shared/address/AddressAddToWallet";
 import AddressEntity from "ui/shared/entities/address/AddressEntity";
+import EntityTags from "ui/shared/EntityTags";
 import IconSvg from "ui/shared/IconSvg";
+import NetworkExplorers from "ui/shared/NetworkExplorers";
 import useQueryWithPages from "ui/shared/pagination/useQueryWithPages";
 import TokenHolders from "ui/token/TokenHolders/TokenHolders";
 import TokenInventory from "ui/token/TokenInventory";
 import TokenTransfer from "ui/token/TokenTransfer/TokenTransfer";
+import TokenVerifiedInfo from "ui/token/TokenVerifiedInfo";
 
+import BWButton from "../shared/BWbutton";
 import TokenDetails from "ui/token/TokenDetails";
 import TabsSkeleton from "ui/shared/Tabs/TabsSkeleton";
 import RoutedTabs from "ui/shared/Tabs/RoutedTabs";
@@ -58,12 +76,12 @@ const TokenPageContent = () => {
   const [isQueryEnabled, setIsQueryEnabled] = React.useState(false);
   const [totalSupplySocket, setTotalSupplySocket] = React.useState<number>();
   const listBgColor = useColorModeValue("white", "blue.1000");
-  const HeadingColor = useColorModeValue('#0D0D0D', 'gray.1300');
-  // const selectBackgroundColor = useColorModeValue("black","")
+  const HeadingColor = useColorModeValue("#29292969", "gray.1300");
+  const selectBackgroundColor = useColorModeValue("white","")
   const router = useRouter();
   const isMobile = useIsMobile();
 
-  // const appProps = useAppContext();
+  const appProps = useAppContext();
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
@@ -317,115 +335,94 @@ const TokenPageContent = () => {
   );
 
 
-  // const TableAreaButton: React.FC<TableAreaButtonProps> = ({
-  //   children,
-  //   ...props
-  // }) => {
-  //   return (
-  //     <Button
-  //       bg="transparent"
-  //       border="1px"
-  //       borderColor="#7272728A"
-  //       color="black"
-  //       fontWeight="400"
-  //       fontSize={{
-  //         base: 12,
-  //         md: 14,
-  //       }}
-  //       padding={{
-  //         base: "5px",
-  //         md: "1em",
-  //       }}
-  //       {...props}
-  //     >
-  //       {children}
-  //     </Button>
-  //   );
-  // };
+  const TableAreaButton: React.FC<TableAreaButtonProps> = ({
+    children,
+    ...props
+  }) => {
+    return (
+      <Button
+        bg="transparent"
+        border="1px"
+        borderColor="#7272728A"
+        color="black"
+        fontWeight="400"
+        fontSize={{
+          base: 12,
+          md: 14,
+        }}
+        padding={{
+          base: "5px",
+          md: "1em",
+        }}
+        {...props}
+      >
+        {children}
+      </Button>
+    );
+  };
 
   // @ts-ignore
   // @ts-ignore
   return (
     <>
       <Flex
-        justifyContent='space-between'
-        alignItems='center'
-        paddingX={{ base: '1em', md: '2.5em' }}
-        paddingTop={{ base: '1em', md: '2.5em' }}
-        flexDirection={{ base: 'column', md: 'row' }}
-        gap={{ base: '20px', md: '0' }} // Adding gap only in mobile view
+        justifyContent="space-between"
+        padding={{ base: "1em", md: "2.5em" }}
+        flexDirection={{ base: "column", md: "row" }}
+        gap={{ base: "20px", md: "0" }} // Adding gap only in mobile view
       >
-        <Flex gap='6px'>
+        <Flex gap="10px">
           {tokenQuery?.data?.icon_url && (
             <img
               src={tokenQuery.data.icon_url}
-              height='80'
-              width='80'
-              alt='crypto logo'
+              height="80"
+              width="80"
+              alt="crypto logo"
             />
           )}
           <Box>
-            <Text fontSize='24px' color={HeadingColor} fontWeight='bold'>
+            <Text fontSize="22px" color={HeadingColor}>
               Token
             </Text>
-            <Text fontSize='30px' fontWeight='800' color='#E75F00'>
+            <Text fontSize="24px" fontWeight="800">
               {tokenQuery.data?.name}
             </Text>
           </Box>
         </Flex>
-        {/* <Flex gap={5}>
-          <select
-            style={{
-              color: 'white',
-              borderRadius: '40px',
-              background: 'black',
-              padding: '14px',
-              fontSize: '12px',
-            }}
-            placeholder='BUY'
+        <Flex gap={5}>
+          <Select
+            placeholder="BUY"
+            backgroundColor={selectBackgroundColor}
+            borderRadius="2em"
           >
-            <option value='option1'>Option 1</option>
-            <option value='option2'>Option 2</option>
-            <option value='option3'>Option 3</option>
-          </select>
-          <select
-            style={{
-              color: 'white',
-              borderRadius: '40px',
-              background: 'black',
-              padding: '14px',
-              fontSize: '12px',
-            }}
-            placeholder='Exchange'
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </Select>
+          <Select
+            placeholder="Exchange"
+            backgroundColor={selectBackgroundColor}
+            borderRadius="2em"
           >
-            <option value='option1'>Option 1</option>
-            <option value='option2'>Option 2</option>
-            <option value='option3'>Option 3</option>
-          </select>
-          <select
-            style={{
-              color: 'white',
-              borderRadius: '40px',
-              background: 'black',
-              padding: '14px',
-              fontSize: '12px',
-            }}
-            placeholder='Play'
-          >
-            <option value='option1'>Option 1</option>
-            <option value='option2'>Option 2</option>
-            <option value='option3'>Option 3</option>
-          </select>
-        </Flex> */}
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </Select>
+          <Select placeholder="Play" backgroundColor={selectBackgroundColor} borderRadius="2em">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </Select>
+        </Flex>
       </Flex>
       <Box
         bg={listBgColor}
-        borderTopRadius='2.5em'
+        borderTopRadius="2.5em"
         padding={{
-          base: '1em',
-          md: '3em',
+          base: "1em",
+          md: "3em",
         }}
-        paddingY='3em'
+        paddingY="3em"
       >
         <TokenDetails tokenQuery={tokenQuery} address={titleSecondRow} />
         {isLoading ? (
@@ -433,7 +430,7 @@ const TokenPageContent = () => {
         ) : (
           <RoutedTabs
             tabs={tabs}
-            type='parent_tabs'
+            type="parent_tabs"
             tabListProps={tabListProps}
             rightSlot={
               !isMobile && pagination?.isVisible ? (

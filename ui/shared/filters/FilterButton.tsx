@@ -26,17 +26,15 @@ const FilterButton = ({ isActive, isLoading, appliedFiltersNum, onClick, as }: P
     <Button
       ref={ ref }
       rightIcon={ appliedFiltersNum ? <Circle bg={ badgeBgColor } size={ 5 } color={ badgeColor }>{ appliedFiltersNum }</Circle> : undefined }
+      size="sm"
       fontWeight="500"
+      variant="outline"
+      colorScheme="gray-dark"
       onClick={ onClick }
       isActive={ isActive }
       px={ 1.5 }
       flexShrink={ 0 }
       as={ as }
-      borderRadius="40px"
-      background="black"
-      color="white"
-      padding="14px 20px"
-      fontSize="12px"
     >
       { FilterIcon }
       <Box display={{ base: 'none', lg: 'block' }}>Filter</Box>
