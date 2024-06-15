@@ -17,7 +17,7 @@ const SearchContainer = ({ title }: Props) => {
         px="3em"
         my="3em"
         background={ headingBgColor }
-        borderRadius="48px"
+        borderRadius="24px"
         padding={{ base: '48px 24px', lg: '48px' }}
         minW={{ base: '300px', lg: '900px' }}
         data-label="hero plate"
@@ -32,7 +32,7 @@ const SearchContainer = ({ title }: Props) => {
             size={{ base: 'md', lg: 'xl' }}
             lineHeight={{ base: '32px', lg: '50px' }}
             fontWeight={ 600 }
-            background="linear-gradient(90deg, #FFFFFF 28.1%, #E75F00 100%)"
+            bgGradient="linear(to-r, #FFFFFF 25.04%, rgba(255, 255, 255, 0) 137.07%)"
             bgClip="text"
             color="transparent"
           >
