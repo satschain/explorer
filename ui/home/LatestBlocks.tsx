@@ -84,7 +84,7 @@ const LatestBlocks = () => {
         { /*  </Skeleton>*/ }
         { /*) }*/ }
         { /*<AnimatePresence initial={ false } >*/ }
-        <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap="20px">
+        <Box display="flex" flexDirection={{ base: 'column', md: 'row' }} gap="20px" flexWrap="wrap" justifyContent="space-between">
           { dataToShow.map(((block, index) => (
             <LatestBlocksItem
               key={ block.height + (isPlaceholderData ? String(index) : '') }
@@ -102,7 +102,7 @@ const LatestBlocks = () => {
   }
 
   return (
-    <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
+    <Box width="100%" flexShrink={ 0 }>
       { /*<Heading as="h4" size="sm" mb={ 4 }>Latest blocks</Heading>*/ }
       { content }
     </Box>

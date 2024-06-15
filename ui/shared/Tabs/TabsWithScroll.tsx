@@ -1,6 +1,6 @@
 import type { LazyMode } from '@chakra-ui/lazy-utils';
 import type { ChakraProps, ThemingProps } from '@chakra-ui/react';
-import { Tabs, TabPanel, TabPanels, chakra, Box, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Tabs, TabPanel, TabPanels, chakra, Box, Flex } from '@chakra-ui/react';
 import _debounce from 'lodash/debounce';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -56,11 +56,6 @@ const TabsWithScroll = ({
   const { tabsCut, rightSlotRef } = useAdaptiveTabs(tabs);
 
   const tabsRef = useRef<HTMLDivElement>(null);
-
-  // const tabsList = React.useMemo(() => {
-  //   return [...tabs, menuButton];
-  // }, [tabs]);
-
   const handleTabChange = React.useCallback(
     (index: number) => {
       onTabChange ? onTabChange(index) : setActiveTabIndex(index);
@@ -90,8 +85,6 @@ const TabsWithScroll = ({
     return <div>{ tabs[0].component }</div>;
   }
 
-  // console.log({ tabsList });
-
   return (
     <Tabs
       className={ className }
@@ -105,44 +98,34 @@ const TabsWithScroll = ({
       size={ themeProps.size || 'md' }
       ref={ tabsRef }
       lazyBehavior={ lazyBehavior }
-      // bg="red"
       width="100%"
     >
-      <AdaptiveTabsList
-        key={ screenWidth }
-        tabs={ tabs }
-        type={ type }
-        tabListProps={ tabListProps }
-        rightSlot={ rightSlot }
-        rightSlotProps={ rightSlotProps }
-        stickyEnabled={ stickyEnabled }
-        activeTabIndex={ activeTabIndex }
-        onItemClick={ handleTabChange }
-        themeProps={ themeProps }
-      />
-      <Box
-        borderWidth={ !isMobile && type === 'parent_tabs' ? '1.5px' : undefined }
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        borderColor={ useColorModeValue(
-          'rgba(114, 114, 114, 0.54)',
-          'blue.1000',
-        ) }
-        paddingTop="20px"
-        padding={ (!type && !isMobile) ? '20px' : undefined }
-        borderTopLeftRadius="20px"
-        borderTopRightRadius="20px"
-      >
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <AdaptiveTabsList
+          key={ screenWidth }
+          tabs={ tabs }
+          type={ type }
+          tabListProps={ tabListProps }
+          rightSlot={ rightSlot }
+          rightSlotProps={ rightSlotProps }
+          stickyEnabled={ stickyEnabled }
+          activeTabIndex={ activeTabIndex }
+          onItemClick={ handleTabChange }
+          themeProps={ themeProps }
+        />
         { rightSlot && tabsCut > 0 ? (
           <Flex
             ref={ rightSlotRef }
             ml="auto"
-            margin="24px 20px"
+            // margin="24px 0px"
             marginTop="0px"
             justifyContent="end"
           >
             <Box>{ rightSlot }</Box>
           </Flex>
         ) : null }
+      </Box>
+      <Box paddingTop="20px" padding={ !type && !isMobile ? '20px' : undefined }>
         <TabPanels>
           { tabs.map((tab) => (
             <TabPanel padding={ 0 } key={ tab.id }>

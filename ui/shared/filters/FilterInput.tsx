@@ -39,12 +39,8 @@ const FilterInput = ({ onChange, className, size = 'sm', placeholder, initialVal
       minW="250px"
       borderRadius="base"
     >
-      <InputGroup
-        size={ size }
-      >
-        <InputLeftElement
-          pointerEvents="none"
-        >
+      <InputGroup size={ size }>
+        <InputLeftElement pointerEvents="none" top="4px" left="2px">
           <IconSvg name="search" color={ iconColor } boxSize={ 4 }/>
         </InputLeftElement>
 
@@ -57,10 +53,14 @@ const FilterInput = ({ onChange, className, size = 'sm', placeholder, initialVal
           borderWidth="2px"
           textOverflow="ellipsis"
           whiteSpace="nowrap"
+          borderRadius="40px"
+          padding="18px 30px"
+          fontSize="12px"
+          color="black"
         />
 
         { filterQuery ? (
-          <InputRightElement>
+          <InputRightElement top="4px">
             <ClearButton onClick={ handleFilterQueryClear }/>
           </InputRightElement>
         ) : null }

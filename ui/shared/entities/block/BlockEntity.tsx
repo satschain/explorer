@@ -61,7 +61,7 @@ const BlockEntity = (props: EntityProps) => {
   const color = useColorModeValue('black', 'gray.1300');
 
   return (
-    <Container className={ props.className }>
+    <Container className={ props.className } gap={ 2 }>
       <FaCube { ...partsProps }/>
       <Link { ...linkProps }>
         <Content { ...partsProps } color={ color } fontWeight="500"/>

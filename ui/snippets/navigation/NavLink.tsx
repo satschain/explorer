@@ -26,8 +26,8 @@ const NavLink = ({ item, isCollapsed, className, onClick }: Props) => {
   const isMobile = useIsMobile();
   const colors = useColors();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const bgColor = useColorModeValue('gray.200', 'gray.1200');
-  const color = useColorModeValue('gray.1200', 'gray.1100');
+  const bgColor = useColorModeValue('black', 'gray.1200');
+  const color = useColorModeValue('balck', 'gray.1100');
 
   const isExpanded = isCollapsed === false;
   const isInternalLink = isInternalItem(item);
@@ -41,9 +41,17 @@ const NavLink = ({ item, isCollapsed, className, onClick }: Props) => {
       href={ href }
       target={ isInternalLink ? '_self' : '_blank' }
       { ...styleProps.itemProps }
-      w={{ base: '100%', lg: isExpanded ? '100%' : '60px', xl: isCollapsed ? '60px' : '100%' }}
+      w={{
+        base: '100%',
+        lg: isExpanded ? '100%' : '60px',
+        xl: isCollapsed ? '60px' : '100%',
+      }}
       display="flex"
-      px={{ base: 3, lg: isExpanded ? 3 : '15px', xl: isCollapsed ? '15px' : 3 }}
+      px={{
+        base: 3,
+        lg: isExpanded ? 3 : '15px',
+        xl: isCollapsed ? '15px' : 3,
+      }}
       aria-label={ `${ item.text } link` }
       whiteSpace="nowrap"
       onClick={ onClick }
@@ -53,21 +61,33 @@ const NavLink = ({ item, isCollapsed, className, onClick }: Props) => {
       // bg={ bgColor }
       color={ color }
       _hover={{
-        color: color, background: bgColor, borderRadius: 16,
-        // '& *': {
-        // },
+        color: color,
+        // background: bgColor,
+        borderRadius: 16,
       }}
     >
       <Tooltip
         label={ item.text }
         hasArrow={ false }
-        isDisabled={ isMobile || isCollapsed === false || (isCollapsed === undefined && isXLScreen) }
+        isDisabled={
+          isMobile ||
+          isCollapsed === false ||
+          (isCollapsed === undefined && isXLScreen)
+        }
         placement="right"
         variant="nav"
         gutter={ 20 }
-        color={ isInternalLink && item.isActive ? colors.text.active : colors.text.hover }
+        color={
+          isInternalLink && item.isActive ?
+            colors.text.active :
+            colors.text.hover
+        }
       >
-        <HStack spacing={ 3 } overflow="hidden">
+        <HStack
+          spacing={ 3 }
+          overflow="hidden"
+          color={ item?.isActive ? 'black' : 'white' }
+        >
           <NavLinkIcon item={ item }/>
           <Text { ...styleProps.textProps }>
             <span>{ item.text }</span>

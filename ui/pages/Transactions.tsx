@@ -147,12 +147,16 @@ const Transactions = () => {
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 4, lg: 8 }}>
+      <Flex
+        direction="column"
+        paddingX={{ base: 4, lg: 8 }}
+        backgroundColor="#F2FAFF"
+        borderBottomRadius="2rem"
+      >
         <SearchContainer title="Transactions"/>
       </Flex>
       <Box
         bgColor={ listBgColor }
-        borderTopRadius="2.5em"
         padding={{
           base: '1em',
           md: '2em',
