@@ -87,6 +87,7 @@ const AdaptiveTabsList = (props: Props) => {
       { ...(typeof props.tabListProps === 'function' ?
         props.tabListProps({ isSticky, activeTabIndex: props.activeTabIndex }) :
         props.tabListProps) }
+      marginTop={ 0 }
     >
       { tabsList.map((tab, index) => {
         if (!tab.id) {
@@ -109,7 +110,7 @@ const AdaptiveTabsList = (props: Props) => {
           <Tab
             key={ tab.id }
             ref={ tabsRefs[index] }
-            { ...(index < tabsCut ? {} : hiddenItemStyles) }
+            // { ...(index < tabsCut ? {} : hiddenItemStyles) }
             scrollSnapAlign="start"
             flexShrink={ 0 }
             borderRadius={ props?.type !== 'parent_tabs' ? '25px' : '32px' }

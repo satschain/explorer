@@ -1,4 +1,4 @@
-import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -14,7 +14,6 @@ import { TOKEN_INFO_ERC_20 } from 'stubs/token';
 import { generateListStub } from 'stubs/utils';
 import PopoverFilter from 'ui/shared/filters/PopoverFilter';
 import TokenTypeFilter from 'ui/shared/filters/TokenTypeFilter';
-import PageTitle from 'ui/shared/Page/PageTitle';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import getSortParamsFromValue from 'ui/shared/sort/getSortParamsFromValue';
 import getSortValueFromQuery from 'ui/shared/sort/getSortValueFromQuery';
@@ -102,7 +101,6 @@ const Tokens = () => {
     setTokenTypes(undefined);
     setBridgeChains(undefined);
   }, []);
-
   const filter = tab === 'bridged' ? (
     <PopoverFilter isActive={ bridgeChains && bridgeChains.length > 0 } contentProps={{ maxW: '350px' }} appliedFiltersNum={ bridgeChains?.length }>
       <TokensBridgedChainsFilter onChange={ handleBridgeChainsChange } defaultValue={ bridgeChains }/>
@@ -174,9 +172,9 @@ const Tokens = () => {
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 6, lg: 12 }}>
+      { /* <Flex direction="column" paddingX={{ base: 6, lg: 12 }}>
         <PageTitle title="Tokens"/>
-      </Flex>
+      </Flex> */ }
       <Box
         bgColor={ listBgColor }
         borderTopRadius="2.5em"
@@ -185,7 +183,6 @@ const Tokens = () => {
           base: '1.5em',
           md: '3em',
         }}
-        paddingY="3em"
       >
         { tabs.length === 1 && !isMobile && actionBar }
         <RoutedTabs

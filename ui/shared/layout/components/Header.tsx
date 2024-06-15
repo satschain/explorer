@@ -32,16 +32,13 @@ const Header = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        p="1.5em"
+        p="1.5rem 4rem"
+        backgroundColor="#F2FAFF"
+        borderBottomRadius="40px"
       >
         <Box>
           <Link href="/">
-            <Image
-              src={ Logo }
-              alt="Example"
-              width={ 40 }
-              height={ 50 }
-            />
+            <Image src={ Logo } alt="Example" width={ 40 } height={ 50 }/>
           </Link>
         </Box>
         <Box
@@ -90,11 +87,7 @@ const Header = () => {
                   <Text color="linear-gradient(180deg, #FFFFFF 0%, #999999 100%)">
                     CONNECT
                   </Text>
-                  <Box
-                    background="white"
-                    borderRadius="2em"
-                    p="4px"
-                  >
+                  <Box background="white" borderRadius="2em" p="4px">
                     <MdArrowOutward color="black"/>
                   </Box>
                 </>
