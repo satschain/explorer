@@ -128,7 +128,7 @@ const PageTitle = ({
   }, [ updatedTruncateState ]);
 
   return (
-    <Flex className={ className } flexDir="column" rowGap={ 3 } mb={ 6 }>
+    <Flex className={ className } flexDir="column" rowGap={ 3 }>
       <Flex
         flexDir="row"
         flexWrap="wrap"
