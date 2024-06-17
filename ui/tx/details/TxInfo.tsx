@@ -26,7 +26,6 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { WEI, WEI_IN_GWEI } from 'lib/consts';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
-import getConfirmationDuration from 'lib/tx/getConfirmationDuration';
 import { currencyUnits } from 'lib/units';
 import Tag from 'ui/shared/chakra/Tag';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -274,14 +273,6 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
           ) : (
             <BlockEntity isLoading={ isLoading } number={ data.block } noIcon/>
           ) }
-          { Boolean(data.confirmations) && (
-            <>
-              <TextSeparator color="gray.500"/>
-              <Skeleton isLoaded={ !isLoading } color="text_secondary">
-                <span>{ data.confirmations } Block confirmations</span>
-              </Skeleton>
-            </>
-          ) }
         </DetailsInfoItem>
         { data.zkevm_batch_number && (
           <DetailsInfoItem
@@ -321,16 +312,6 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
               timestamp={ data.timestamp }
               isLoading={ isLoading }
             />
-            { data.confirmation_duration && (
-              <>
-                <TextSeparator color="gray.500"/>
-                <Skeleton isLoaded={ !isLoading } color="text_secondary">
-                  <span>
-                    { getConfirmationDuration(data.confirmation_duration) }
-                  </span>
-                </Skeleton>
-              </>
-            ) }
           </DetailsInfoItem>
         ) }
         { data.execution_node && (
@@ -511,23 +492,24 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         />
 
         <DetailsInfoItem
-          title="Gas usage & limit by txn"
+          title="Gas usage"
           hint="Actual gas amount used by the transaction"
           isLoading={ isLoading }
         >
           <Skeleton isLoaded={ !isLoading }>
             { BigNumber(data.gas_used || 0).toFormat() }
           </Skeleton>
-          <TextSeparator/>
+          { /* <TextSeparator/>
           <Skeleton isLoaded={ !isLoading }>
             { BigNumber(data.gas_limit).toFormat() }
-          </Skeleton>
+          </Skeleton> */ }
           <Utilization
             ml={ 4 }
             value={ BigNumber(data.gas_used || 0)
               .dividedBy(BigNumber(data.gas_limit))
               .toNumber() }
             isLoading={ isLoading }
+            parenthesis={ true }
           />
         </DetailsInfoItem>
         { !config.UI.views.tx.hiddenFields?.gas_fees &&

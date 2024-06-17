@@ -80,6 +80,7 @@ const Content = chakra((props: ContentProps) => {
         overflow="hidden"
         textOverflow="ellipsis"
         height="fit-content"
+        color="#E75F00"
       >
         { nameString }
       </Skeleton>

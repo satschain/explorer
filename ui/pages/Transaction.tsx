@@ -108,7 +108,7 @@ const TransactionPageContent = () => {
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 4, lg: 8 }}>
+      <Flex direction="column" padding={{ base: 4, lg: 8 }}>
         <PageTitle
           title="Transaction details"
           backLink={ backLink }
@@ -120,10 +120,6 @@ const TransactionPageContent = () => {
         minH="75vh"
         bg={ listBgColor }
         borderTopRadius="2.5em"
-        paddingY={{
-          base: '1em',
-          md: '2em',
-        }}
         paddingX="1em"
         width="100%"
       >

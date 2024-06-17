@@ -1,4 +1,4 @@
-import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,7 +10,6 @@ import { BLOCK } from 'stubs/block';
 import { generateListStub } from 'stubs/utils';
 import BlocksContent from 'ui/blocks/BlocksContent';
 import BlocksTabSlot from 'ui/blocks/BlocksTabSlot';
-import PageTitle from 'ui/shared/Page/PageTitle';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
 
@@ -77,28 +76,23 @@ const BlocksPageContent = () => {
   ];
 
   return (
-    <>
-      <Flex direction="column" paddingX={{ base: 6, lg: 12 }}>
-        <PageTitle title="Blocks" withTextAd/>
-      </Flex>
-      <Box
-        bgColor={ listBgColor }
-        borderTopRadius="2.5em"
-        padding={{
-          base: '1em',
-          md: '3em',
-        }}
-        paddingY="3em"
-      >
-        <RoutedTabs
-          tabs={ tabs }
-          type="parent_tabs"
-          tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }
-          rightSlot={ <BlocksTabSlot pagination={ pagination }/> }
-          stickyEnabled={ !isMobile }
-        />
-      </Box>
-    </>
+    <Box
+      bgColor={ listBgColor }
+      borderTopRadius="2.5em"
+      padding={{
+        base: '1em',
+        md: '3em',
+      }}
+      paddingY="3em"
+    >
+      <RoutedTabs
+        tabs={ tabs }
+        type="parent_tabs"
+        tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }
+        rightSlot={ <BlocksTabSlot pagination={ pagination }/> }
+        stickyEnabled={ !isMobile }
+      />
+    </Box>
   );
 };
 
