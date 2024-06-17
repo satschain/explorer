@@ -492,23 +492,24 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         />
 
         <DetailsInfoItem
-          title="Gas usage & limit by txn"
+          title="Gas usage"
           hint="Actual gas amount used by the transaction"
           isLoading={ isLoading }
         >
           <Skeleton isLoaded={ !isLoading }>
             { BigNumber(data.gas_used || 0).toFormat() }
           </Skeleton>
-          <TextSeparator/>
+          { /* <TextSeparator/>
           <Skeleton isLoaded={ !isLoading }>
             { BigNumber(data.gas_limit).toFormat() }
-          </Skeleton>
+          </Skeleton> */ }
           <Utilization
             ml={ 4 }
             value={ BigNumber(data.gas_used || 0)
               .dividedBy(BigNumber(data.gas_limit))
               .toNumber() }
             isLoading={ isLoading }
+            parenthesis={ true }
           />
         </DetailsInfoItem>
         { !config.UI.views.tx.hiddenFields?.gas_fees &&

@@ -88,7 +88,7 @@ const AddressPageContent = () => {
                   <IconSvg
                     name="status/success"
                     boxSize="14px"
-                    color="green.500"
+                    color="#39E114"
                     ml={ 1 }
                   />
                 </>

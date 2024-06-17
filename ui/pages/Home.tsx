@@ -137,12 +137,12 @@ const Home = () => {
             LATEST BLOCKS
           </BWButton>
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <BWButton
+          {/* <BWButton
             onClick={() => setIsBlockSelected(false)}
             active={!isBlockSelected}
           >
             LATEST TRANSACTIONS
-          </BWButton>
+          </BWButton> */}
         </Box>
         <LatestBlocks />
       </Box>

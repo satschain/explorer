@@ -2,6 +2,7 @@ import { chakra, useColorModeValue } from '@chakra-ui/react';
 import _omit from 'lodash/omit';
 import React from 'react';
 import { FaCube } from 'react-icons/fa';
+import { MdOpenInNew } from 'react-icons/md';
 
 import { route } from 'nextjs-routes';
 
@@ -60,12 +61,18 @@ const BlockEntity = (props: EntityProps) => {
   const partsProps = _omit(props, [ 'className', 'onClick' ]);
   const color = useColorModeValue('black', 'gray.1300');
 
+  const openBlock = () => {
+    window.open(`https://mempool.space/testnet/block/${ props.number }`, '_blank');
+  };
+
   return (
     <Container className={ props.className } gap={ 2 }>
       <FaCube { ...partsProps }/>
       <Link { ...linkProps }>
         <Content { ...partsProps } color={ color } fontWeight="500"/>
       </Link>
+      { /* eslint-disable-next-line react/jsx-no-bind */ }
+      <MdOpenInNew onClick={ openBlock }/>
     </Container>
   );
 };

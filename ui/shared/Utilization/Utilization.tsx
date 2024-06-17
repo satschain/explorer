@@ -7,10 +7,11 @@ interface Props {
   value: number;
   colorScheme?: 'green' | 'gray';
   isLoading?: boolean;
+  parenthesis?: boolean;
 }
 
 // const Utilization = ({ className, value, colorScheme = 'green', isLoading }: Props) => {
-const Utilization = ({ className, value, isLoading }: Props) => {
+const Utilization = ({ className, value, isLoading, parenthesis: parenthesis = false }: Props) => {
   const valueString = (clamp(value * 100 || 0, 0, 100)).toLocaleString(undefined, { maximumFractionDigits: 2 }) + '%';
   // const colorGrayScheme = useColorModeValue('gray.500', 'gray.400');
   // const color = colorScheme === 'gray' ? colorGrayScheme : 'green.500';
@@ -27,7 +28,7 @@ const Utilization = ({ className, value, isLoading }: Props) => {
         color="rgba(77, 80, 82, 1)"
         fontWeight="medium"
       >
-        <span>{ valueString }</span>
+        <span>{ parenthesis ? '(' : '' }{ valueString }{ parenthesis ? ')' : '' }</span>
       </Skeleton>
     </Flex>
   );
