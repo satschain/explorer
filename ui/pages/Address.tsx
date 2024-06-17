@@ -224,6 +224,7 @@ const AddressPageContent = () => {
         address={{ ...addressQuery.data, hash, name: '', ens_domain_name: '' }}
         isLoading={ isLoading }
         fontFamily="heading"
+        color="#E75F00"
         fontSize="lg"
         fontWeight={ 500 }
         noLink
@@ -248,7 +249,7 @@ const AddressPageContent = () => {
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 4, lg: 8 }} margin={ 4 }>
+      <Flex direction="column" paddingX={{ base: 4, lg: 8 }} marginTop={ 10 } mx={ 6 }>
         { addressQuery?.status === 'error' && (
           <Alert status="warning" marginBottom={ 4 }>
           If you have deployed your contract recently, please wait for a bitcoin
@@ -269,11 +270,7 @@ const AddressPageContent = () => {
         minH="75vh"
         bg={ listBgColor }
         borderTopRadius="2.5em"
-        paddingY={{
-          base: '1em',
-          md: '2em',
-        }}
-        paddingX="1em"
+        padding="1em 2rem"
         width="100%"
       >
         <AddressDetails addressQuery={ addressQuery } scrollRef={ tabsScrollRef }/>

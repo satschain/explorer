@@ -44,14 +44,13 @@ const SuccessModal = ({ open, inscriptionId, setOpen, rlp }: Props) => {
   useEffect(() => {
     if (localStorage.getItem('address')) {
       fetchContractAddress({
-        inscriptionId:
-          '736b2929da7601c4efc2af5e744368d1ea9fea2d7d430ef9bfda6750ea525acci0',
+        inscriptionId,
         address: localStorage.getItem('address'),
         rlp: rlp,
       })
         .then(async(response: any) => {
           const data = await response.json();
-          setContractAddress(data?.data?.contractAddress);
+          setContractAddress(data?.btcContractAddress);
         })
         .catch((err: any) => {
           toast({
@@ -60,7 +59,7 @@ const SuccessModal = ({ open, inscriptionId, setOpen, rlp }: Props) => {
           });
         });
     }
-  }, [ rlp, toast ]);
+  }, [ rlp, toast, inscriptionId ]);
   return (
     <Modal isOpen={ open } onClose={ handleClose }>
       <ModalContent>

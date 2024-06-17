@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Box, Text, Grid, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, Grid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -85,13 +85,7 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
       templateColumns={{ base: 'minmax(0, 1fr)', lg: 'auto minmax(0, 1fr)' }}
       overflow="hidden"
       padding={ 6 }
-      borderColor={ useColorModeValue(
-        'rgba(114, 114, 114, 0.54)',
-        'rgba(255, 255, 255, 0.08)',
-      ) }
-      boxShadow="0px 9.89px 23.75px 0px #BDC5D133"
       rounded={ 20 }
-      marginX={{ base: '0px', lg: '20px' }}
     >
       <AddressNameInfo
         data={ data }
