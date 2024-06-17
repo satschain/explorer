@@ -86,7 +86,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
         } else {
           setTimeout(() => {
             fetchOrderDetails(orderId);
-          }, 5000);
+          }, 60000);
         }
       }
     } catch (error) {
