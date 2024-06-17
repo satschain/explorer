@@ -1,10 +1,24 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, useToast } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, Text, useToast } from '@chakra-ui/react';
+import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
+import { TiPlusOutline } from 'react-icons/ti';
+import Web3 from 'web3';
 
-import { createOrder, fetchOrder, fetchRecommendedFeeRate } from './contract.service';
+import { FeeDetail } from 'ui/FeeDetails';
+
+import Logo from '../../../public/logo.png';
+import { addContract, createOrder, fetchOrder, fetchRecommendedFeeRate } from './contract.service';
+
+export type InscribeFileData = {
+  filename: string;
+  dataURL: string;
+  size: number;
+  type?: string;
+};
 
 type Props = {
   open: boolean;
@@ -12,15 +26,27 @@ type Props = {
   encodedData: string;
   setOpenSuccessModal: (val: boolean) => void;
   setInscriptionId: (val: string) => void;
+  fileList: Array<InscribeFileData>;
+  byteCode: string;
 };
 export function stringToBase64(stringToEncode: string) {
-  // btoa only support ascii, use js-base64 instead
   return btoa(stringToEncode);
 }
-const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setInscriptionId }: Props) => {
+const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setInscriptionId, fileList, byteCode }: Props) => {
   const toast = useToast();
   const [ outputValue, setOutputValue ] = useState<any>(564);
   const [ feeRate, setFeeRate ] = useState<any>(0);
+  const [ loading, setLoading ] = useState(false);
+  const address = localStorage.getItem('address');
+
+  const convertByteCodeToSHA256 = async() => {
+    try {
+      const web3 = new Web3();
+      const sha256Hash = web3.utils.sha3(byteCode);
+      return sha256Hash;
+    } catch (error) {
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -43,6 +69,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
   }, [ feeHandler ]);
 
   const inscribeOrder = async() => {
+    setLoading(true);
     try {
       const response = await createOrder({
         receiveAddress: localStorage.getItem('address') || '',
@@ -66,6 +93,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
         data?.data?.feeRate,
       );
     } catch (error: any) {
+      setLoading(false);
       toast({
         description: error?.message || 'Error',
         status: 'error',
@@ -75,18 +103,34 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
     }
 
   };
+
+  async function addContractHandler(inscriptionId: string) {
+    const contractHash = (await convertByteCodeToSHA256()) as string;
+    try {
+      const response = await addContract({
+        contractHash,
+        inscriptionId,
+        raw_code: {},
+      });
+      const data = await response.json();
+      setOpenSuccessModal(true);
+    } catch (error: any) {
+      toast({ status: 'error', description: error.message });
+    }
+  }
   const fetchOrderDetails = async(orderId: string) => {
     try {
       const response = await fetchOrder(orderId);
       if (response.ok) {
         const data: any = await response.json();
         if (data?.data?.files?.[0]?.inscriptionId) {
+          setLoading(false);
           setInscriptionId(data?.data?.files?.[0]?.inscriptionId ?? '');
-          setOpenSuccessModal(true);
+          addContractHandler(data?.data?.files?.[0]?.inscriptionId ?? '');
         } else {
           setTimeout(() => {
             fetchOrderDetails(orderId);
-          }, 60000);
+          }, 10000);
         }
       }
     } catch (error) {
@@ -116,31 +160,76 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
   };
   return (
     <Modal isOpen={ open } onClose={ handleClose }>
-      <ModalContent>
-        <ModalHeader>Inscribe</ModalHeader>
-        <ModalCloseButton/>
+      <ModalContent width="450px" borderRadius="40px" border="1px solid black">
+        <ModalHeader mb={ 4 }>
+          <Image src={ Logo } alt="Satch-Logo" width={ 30 }/>
+        </ModalHeader>
+        <ModalCloseButton color="red" _hover={{ color: 'red' }}/>
         <ModalBody>
-          <FormControl>
-            <FormLabel>Output Value</FormLabel>
+          <Text textAlign="center" fontWeight="bold" fontSize="2xl" mb={ 8 }>
+            Inscribe text
+          </Text>
+          <FormControl
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <FormLabel width="200px" fontSize="sm" mb={ 0 }>
+              Output Value
+            </FormLabel>
             <Input
               type="number"
               value={ outputValue }
               onChange={ (e) => setOutputValue(e.target.value) }
+              height="auto"
+              padding="4px 12px"
+              width="200px"
+              fontSize="xs"
             />
           </FormControl>
-          <FormControl mt={ 4 }>
-            <FormLabel>Fee Rate (sat/vbytes)</FormLabel>
+          <FormControl
+            mt={ 4 }
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <FormLabel width="200px" fontSize="sm" mb={ 0 }>
+              Fee Rate
+              <br/> (sat/vbytes)
+            </FormLabel>
             <Input
               type="number"
               value={ feeRate }
               onChange={ (e) => setFeeRate(e.target.value) }
+              height="auto"
+              padding="4px 12px"
+              width="200px"
+              fontSize="xs"
             />
           </FormControl>
+          <FeeDetail
+            feeRate={ feeRate }
+            outputValue={ outputValue }
+            devFee={ 0 }
+            fileList={ fileList }
+            address={ address }
+          />
         </ModalBody>
 
         <ModalFooter display="flex" justifyContent="end">
-          <Button colorScheme="blue" onClick={ inscribeOrder }>
-            Inscribe
+          <Button
+            onClick={ inscribeOrder }
+            borderRadius="40px"
+            color="balck"
+            background="white"
+            border="1px solid black"
+            fontSize="16px"
+            padding="2px 16px"
+            gap={ 2 }
+            _hover={{ background: 'white' }}
+          >
+            { loading ? 'Loading...' : 'Inscribe' }
+            <TiPlusOutline color="#E75F00"/>
           </Button>
         </ModalFooter>
       </ModalContent>

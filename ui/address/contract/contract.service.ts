@@ -6,6 +6,7 @@ type ContractRequest = {
   contractHash: string;
   addressHash?: string;
   raw_code?: Record<string, any>;
+  inscriptionId?: string;
 };
 type ContractAddressRequest = {
   inscriptionId: string;
@@ -103,6 +104,26 @@ export async function fetchContractAddress(req: ContractAddressRequest) {
   };
   return fetch(
     'https://explorer-api.satschain.xyz/determine-deployed-inscription-values',
+    requestOptions,
+  );
+}
+
+export async function addContract(req: ContractRequest) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      contract_hash: req?.contractHash,
+      inscription_id: req?.inscriptionId,
+      wallet_address: localStorage.getItem('address'),
+      raw_code: req?.raw_code,
+    }),
+  };
+
+  return fetch(
+    'https://api.satschain.xyz/bapi/sats/contract/add',
     requestOptions,
   );
 }

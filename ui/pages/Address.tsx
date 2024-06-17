@@ -248,7 +248,7 @@ const AddressPageContent = () => {
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 4, lg: 8 }}>
+      <Flex direction="column" paddingX={{ base: 4, lg: 8 }} margin={ 4 }>
         { addressQuery?.status === 'error' && (
           <Alert status="warning" marginBottom={ 4 }>
           If you have deployed your contract recently, please wait for a bitcoin
