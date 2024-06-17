@@ -38,7 +38,7 @@ export default function useUnisatWallet() {
   const switchUnisatNetwork = async() => {
     try {
       // eslint-disable-next-line no-unused-vars
-      await (window as any).unisat.switchNetwork("livenet");
+      await (window as any).unisat.switchNetwork("testnet");
       await unisatHandler();
     } catch (e) {}
   };
@@ -47,7 +47,7 @@ export default function useUnisatWallet() {
     if ((window as any).unisat) {
       try {
         const res = await (window as any).unisat.getNetwork();
-        if (res === "livenet") {
+        if (res === "testnet") {
           await unisatHandler();
         } else {
           await switchUnisatNetwork();
