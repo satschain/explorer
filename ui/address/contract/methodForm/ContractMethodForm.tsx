@@ -7,7 +7,6 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import type { ContractMethodCallResult } from '../types';
-import type { ResultComponentProps } from './types';
 import type {
   SmartContractMethod,
   SmartContractMethodInput,
@@ -25,16 +24,19 @@ import type { ContractMethodFormFields } from './utils';
 
 interface Props<T extends SmartContractMethod> {
   data: T;
-  onSubmit: (data: T, args: Array<unknown>) => Promise<string> | Promise<ContractMethodCallResult<T>>;
-  resultComponent: (props: ResultComponentProps<T>) => JSX.Element | null;
+  onSubmit: (
+    data: T,
+    args: Array<unknown>
+  ) => Promise<string> | Promise<ContractMethodCallResult<T>>;
   methodType: 'read' | 'write';
+  resultComponent?: any;
 }
 
 const ContractMethodForm = <T extends SmartContractMethod>({
   data,
   onSubmit,
-  resultComponent: ResultComponent,
   methodType,
+  resultComponent: ResultComponent,
 }: Props<T>) => {
   const [ result, setResult ] = React.useState<ContractMethodCallResult<T>>();
   const [ isLoading, setLoading ] = React.useState(false);
@@ -77,7 +79,6 @@ const ContractMethodForm = <T extends SmartContractMethod>({
               'Method name': 'name' in data ? data.name : 'Fallback',
             });
             setLoading(false);
-
           });
       },
       [ data, methodType, onSubmit ],
@@ -117,7 +118,7 @@ const ContractMethodForm = <T extends SmartContractMethod>({
           onSubmit={ formApi.handleSubmit(onFormSubmit) }
           onChange={ handleFormChange }
         >
-          <Flex flexDir="column" rowGap={ 3 } mb={ 6 } _empty={{ display: 'none' }}>
+          <Flex flexDir="column" rowGap={ 3 } my={ 6 } _empty={{ display: 'none' }}>
             { inputs.map((input, index) => {
               if (input.components && input.type === 'tuple') {
                 return (
@@ -164,6 +165,8 @@ const ContractMethodForm = <T extends SmartContractMethod>({
             width="min-content"
             px={ 4 }
             type="submit"
+            fontWeight="bold"
+            border="2px solid #2B6CB0"
           >
             { methodType === 'write' ? 'Write' : 'Read' }
           </Button>

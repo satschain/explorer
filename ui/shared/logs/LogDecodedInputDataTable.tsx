@@ -1,4 +1,4 @@
-import { Flex, Grid, Skeleton, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Grid, Skeleton } from '@chakra-ui/react';
 import React from 'react';
 
 import type { DecodedInput } from 'types/api/decodedInput';
@@ -70,7 +70,6 @@ const Row = ({ name, type, indexed, value, isLoading }: ArrayElement<DecodedInpu
 };
 
 const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
-  const bgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
   const hasIndexed = data.some(({ indexed }) => indexed !== undefined);
 
   const gridTemplateColumnsBase = hasIndexed ?
@@ -85,14 +84,13 @@ const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
       gridTemplateColumns={{ base: gridTemplateColumnsBase, lg: gridTemplateColumnsLg }}
       fontSize="sm"
       lineHeight={ 5 }
-      bgColor={ bgColor }
       p={ 4 }
-      mt={ 2 }
+      mt={ 4 }
       w="100%"
       columnGap={ 5 }
       rowGap={ 5 }
-      borderBottomLeftRadius="md"
-      borderBottomRightRadius="md"
+      borderRadius="md"
+      border="1px solid black"
     >
       <HeaderItem isLoading={ isLoading }>Name</HeaderItem>
       <HeaderItem isLoading={ isLoading }>Type</HeaderItem>

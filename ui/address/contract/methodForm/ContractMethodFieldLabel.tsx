@@ -16,7 +16,7 @@ const ContractMethodFieldLabel = ({ data, isOptional, level }: Props) => {
 
   return (
     <Box
-      w="250px"
+      w="150px"
       fontSize="sm"
       lineHeight={ 5 }
       py="6px"

@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Web3 from 'web3';
-// import { useAccount, useWalletClient, useSwitchChain } from 'wagmi';
 
 import type { SmartContractWriteMethod } from 'types/api/contract';
 
-// import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
-import hashEncodingHandler from 'lib/compile';
+import hashEncodingHandler, { getStringByteCount } from 'lib/compile';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import ContractMethodsAccordion from 'ui/address/contract/ContractMethodsAccordion';
 import ContentLoader from 'ui/shared/ContentLoader';
@@ -19,18 +16,14 @@ import DataFetchAlert from 'ui/shared/DataFetchAlert';
 
 import ContractCustomAbiAlert from './ContractCustomAbiAlert';
 import ContractImplementationAddress from './ContractImplementationAddress';
-import ContractWriteResult from './ContractWriteResult';
-import InscribeModal from './InscribeModal';
+import InscribeModal, { stringToBase64 } from './InscribeModal';
 import ContractMethodForm from './methodForm/ContractMethodForm';
 import SuccessModal from './SuccessModal';
 import useContractAbi from './useContractAbi';
-// import { getNativeCoinValue, prepareAbi } from './utils';
 
 const infuraUrl = 'https://mainnet.infura.io/v3/18b346ece35742b2948e73332f85ad86';
 
 const ContractWrite = () => {
-  // const { data: walletClient } = useWalletClient();
-  // const { isConnected, chainId } = useAccount();
   const web3 = new Web3(infuraUrl);
   const toast = useToast();
   const address = localStorage.getItem('address');
@@ -40,7 +33,9 @@ const ContractWrite = () => {
   const tab = getQueryParamString(router.query.tab);
   const [ open, setOpen ] = useState(false);
   const [ encodedData, setEncodedData ] = useState<string>('');
+  const [ byteCode, setByteCode ] = useState<string>('');
   const [ inscriptionId, setInscriptionId ] = useState<string>('');
+  const [ fileList, setFileList ] = useState<any>([]);
 
   const isProxy = tab === 'write_proxy';
   const isCustomAbi = tab === 'write_custom_methods';
@@ -86,10 +81,21 @@ const ContractWrite = () => {
       const hash = contract?.methods?.[methodName](
         ...inputList,
       ).encodeABI();
+      setByteCode(hash);
+
       const newEncodedString: any = await hashEncodingHandler({ byteCode: hash });
       if (typeof newEncodedString === 'string') {
         setEncodedData(newEncodedString);
         setOpen(true);
+        setFileList([
+          {
+            filename: newEncodedString.slice(0, 64),
+            dataURL: `data:text/plain;charset=utf-8;base64,${ stringToBase64(
+              newEncodedString,
+            ) }`,
+            size: getStringByteCount(newEncodedString),
+          },
+        ]);
         return newEncodedString;
       }
       toast({
@@ -109,7 +115,6 @@ const ContractWrite = () => {
           key={ id + '_' + index }
           data={ item }
           onSubmit={ handleMethodFormSubmit }
-          resultComponent={ ContractWriteResult }
           methodType="write"
         />
       );
@@ -144,14 +149,21 @@ const ContractWrite = () => {
         <InscribeModal
           open={ open }
           setOpen={ setOpen }
+          fileList={ fileList }
           encodedData={ encodedData }
           setOpenSuccessModal={ setOpenSuccessModal }
           setInscriptionId={ setInscriptionId }
+          byteCode={ byteCode }
         />
       ) }
-      { openSuccessModal &&
-      <SuccessModal open={ openSuccessModal } inscriptionId={ inscriptionId } setOpen={ setOpenSuccessModal } rlp={ encodedData }/>
-      }
+      { openSuccessModal && (
+        <SuccessModal
+          open={ openSuccessModal }
+          inscriptionId={ inscriptionId }
+          setOpen={ setOpenSuccessModal }
+          rlp={ encodedData }
+        />
+      ) }
     </>
   );
 };

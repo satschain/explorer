@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, Box, Flex, HStack, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -31,7 +32,7 @@ import SolidityscanReport from 'ui/address/SolidityscanReport';
 import useAddressQuery from 'ui/address/utils/useAddressQuery';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
 // import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
-import AddressEntity from 'ui/shared/entities/address/AddressEntity';
+import * as EntityBase from 'ui/shared/entities/base/components';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
 import EntityTags from 'ui/shared/EntityTags';
 import IconSvg from 'ui/shared/IconSvg';
@@ -71,7 +72,6 @@ const AddressPageContent = () => {
   });
 
   const isSafeAddress = useIsSafeAddress(!addressQuery.isPlaceholderData && addressQuery.data?.is_contract ? hash : undefined);
-  const safeIconColor = useColorModeValue('black', 'white');
 
   const contractTabs = useContractTabs(addressQuery.data);
 
@@ -208,8 +208,18 @@ const AddressPageContent = () => {
     };
   }, [ appProps.referrer ]);
 
+  const CopyElement = (props: any) => {
+    return <EntityBase.Copy text={ props.address }/>;
+  };
+
   const titleSecondRow = (
-    <Flex alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <Flex
+      alignItems="center"
+      w="100%"
+      columnGap={ 2 }
+      rowGap={ 2 }
+      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
+    >
       { addressQuery.data?.ens_domain_name && (
         <EnsEntity
           name={ addressQuery.data?.ens_domain_name }
@@ -220,35 +230,48 @@ const AddressPageContent = () => {
           maxW="300px"
         />
       ) }
-      <AddressEntity
-        address={{ ...addressQuery.data, hash, name: '', ens_domain_name: '' }}
-        isLoading={ isLoading }
-        fontFamily="heading"
-        fontSize="lg"
-        fontWeight={ 500 }
-        noLink
-        isSafeAddress={ isSafeAddress }
-        iconColor={ isSafeAddress ? safeIconColor : undefined }
-        mr={ 4 }
-      />
-      { /* { !isLoading && addressQuery.data?.is_contract && addressQuery.data.token &&
-        <AddressAddToWallet token={ addressQuery.data.token } variant="button"/> } */ }
-      { !isLoading && !addressQuery.data?.is_contract && config.features.account.isEnabled && (
-        <AddressFavoriteButton hash={ hash } watchListId={ addressQuery.data?.watchlist_address_id }/>
+      <Box
+        fontWeight="medium"
+        color="#E75F00"
+        fontSize="xl"
+        display="flex"
+        alignItems="center"
+        gap={ 2 }
+      >
+        { addressQuery?.data?.hash }{ ' ' }
+        <CopyElement address={ addressQuery?.data?.hash }/>
+      </Box>
+      { !isLoading &&
+        !addressQuery.data?.is_contract &&
+        config.features.account.isEnabled && (
+        <AddressFavoriteButton
+          hash={ hash }
+          watchListId={ addressQuery.data?.watchlist_address_id }
+        />
       ) }
       { /* <AddressQrCode address={{ hash }} isLoading={ isLoading }/> */ }
       <AccountActionsMenu isLoading={ isLoading }/>
       <HStack ml="auto" gap={ 2 }/>
-      { addressQuery.data?.is_contract && addressQuery.data?.is_verified && config.UI.views.address.solidityscanEnabled && <SolidityscanReport hash={ hash }/> }
-      { !isLoading && addressQuery.data && config.features.nameService.isEnabled &&
-        <AddressEnsDomains addressHash={ hash } mainDomainName={ addressQuery.data.ens_domain_name }/> }
+      { addressQuery.data?.is_contract &&
+        addressQuery.data?.is_verified &&
+        config.UI.views.address.solidityscanEnabled && (
+        <SolidityscanReport hash={ hash }/>
+      ) }
+      { !isLoading &&
+        addressQuery.data &&
+        config.features.nameService.isEnabled && (
+        <AddressEnsDomains
+          addressHash={ hash }
+          mainDomainName={ addressQuery.data.ens_domain_name }
+        />
+      ) }
       { /* <NetworkExplorers type="address" pathParam={ hash }/> */ }
     </Flex>
   );
 
   return (
     <>
-      <Flex direction="column" paddingX={{ base: 4, lg: 8 }}>
+      <Flex direction="column" paddingX={{ base: 4, lg: 8 }} mx={ 4 } marginY={ 10 }>
         { addressQuery?.status === 'error' && (
           <Alert status="warning" marginBottom={ 4 }>
           If you have deployed your contract recently, please wait for a bitcoin
@@ -269,10 +292,6 @@ const AddressPageContent = () => {
         minH="75vh"
         bg={ listBgColor }
         borderTopRadius="2.5em"
-        paddingY={{
-          base: '1em',
-          md: '2em',
-        }}
         paddingX="1em"
         width="100%"
       >
