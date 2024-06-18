@@ -173,7 +173,7 @@ const ContractMethodForm = <T extends SmartContractMethod>({
         </chakra.form>
       </FormProvider>
       { methodType === 'read' && <ContractMethodFormOutputs data={ outputs }/> }
-      { result && (
+      { methodType !== 'write' && result && (
         <ResultComponent
           item={ data }
           result={ result }
