@@ -123,7 +123,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
       const response = await fetchOrder(orderId);
       if (response.ok) {
         const data: any = await response.json();
-        if (data?.data?.files?.[0]?.inscriptionId) {
+        if (data?.data?.files?.[0]?.status !== 'pending') {
           setLoading(false);
           setInscriptionId(data?.data?.files?.[0]?.inscriptionId ?? '');
           addContractHandler(data?.data?.files?.[0]?.inscriptionId ?? '');
