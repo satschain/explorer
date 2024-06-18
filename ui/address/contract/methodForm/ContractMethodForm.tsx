@@ -24,14 +24,19 @@ import type { ContractMethodFormFields } from './utils';
 
 interface Props<T extends SmartContractMethod> {
   data: T;
-  onSubmit: (data: T, args: Array<unknown>) => Promise<string> | Promise<ContractMethodCallResult<T>>;
+  onSubmit: (
+    data: T,
+    args: Array<unknown>
+  ) => Promise<string> | Promise<ContractMethodCallResult<T>>;
   methodType: 'read' | 'write';
+  resultComponent?: any;
 }
 
 const ContractMethodForm = <T extends SmartContractMethod>({
   data,
   onSubmit,
   methodType,
+  resultComponent: ResultComponent,
 }: Props<T>) => {
   const [ result, setResult ] = React.useState<ContractMethodCallResult<T>>();
   const [ isLoading, setLoading ] = React.useState(false);
@@ -74,7 +79,6 @@ const ContractMethodForm = <T extends SmartContractMethod>({
               'Method name': 'name' in data ? data.name : 'Fallback',
             });
             setLoading(false);
-
           });
       },
       [ data, methodType, onSubmit ],
@@ -169,6 +173,13 @@ const ContractMethodForm = <T extends SmartContractMethod>({
         </chakra.form>
       </FormProvider>
       { methodType === 'read' && <ContractMethodFormOutputs data={ outputs }/> }
+      { result && (
+        <ResultComponent
+          item={ data }
+          result={ result }
+          onSettle={ handleTxSettle }
+        />
+      ) }
     </Box>
   );
 };
