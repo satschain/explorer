@@ -160,7 +160,7 @@ const AddressEntry = (props: EntityProps) => {
       className={ `${ props.className } address-entity ${
         props.noCopy ? 'address-entity_no-copy' : ''
       }` }
-      data-hash={ context && !props.isLoading ? props.address.hash : undefined }
+      data-hash={ context && !props.isLoading ? props?.address?.hash : undefined }
       onMouseEnter={ context?.onMouseEnter }
       onMouseLeave={ context?.onMouseLeave }
       position="relative"

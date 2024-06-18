@@ -74,12 +74,17 @@ const ContractMethodsAccordion = <T extends SmartContractMethod>({
 
   return (
     <>
-      <Flex mb={ 3 }>
+      <Flex my={ 4 }>
         <Box fontWeight={ 500 } mr="auto">
           Contract information
         </Box>
         { data.length > 1 && (
-          <Link onClick={ handleExpandAll }>
+          <Link
+            onClick={ handleExpandAll }
+            fontWeight="700"
+            color="#000000"
+            _hover={{ color: '#000000' }}
+          >
             { expandedSections.length === data.length ? 'Collapse' : 'Expand' }{ ' ' }
             all
           </Link>

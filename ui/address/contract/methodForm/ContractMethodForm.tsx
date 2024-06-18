@@ -114,7 +114,7 @@ const ContractMethodForm = <T extends SmartContractMethod>({
           onSubmit={ formApi.handleSubmit(onFormSubmit) }
           onChange={ handleFormChange }
         >
-          <Flex flexDir="column" rowGap={ 3 } mb={ 6 } _empty={{ display: 'none' }}>
+          <Flex flexDir="column" rowGap={ 3 } my={ 6 } _empty={{ display: 'none' }}>
             { inputs.map((input, index) => {
               if (input.components && input.type === 'tuple') {
                 return (
@@ -161,6 +161,8 @@ const ContractMethodForm = <T extends SmartContractMethod>({
             width="min-content"
             px={ 4 }
             type="submit"
+            fontWeight="bold"
+            border="2px solid #2B6CB0"
           >
             { methodType === 'write' ? 'Write' : 'Read' }
           </Button>

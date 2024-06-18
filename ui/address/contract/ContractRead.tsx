@@ -19,7 +19,6 @@ import ContractConnectWallet from './ContractConnectWallet';
 import ContractCustomAbiAlert from './ContractCustomAbiAlert';
 import ContractImplementationAddress from './ContractImplementationAddress';
 import ContractMethodConstant from './ContractMethodConstant';
-import ContractReadResult from './ContractReadResult';
 import ContractMethodForm from './methodForm/ContractMethodForm';
 // import useWatchAccount from './useWatchAccount';
 
@@ -99,7 +98,6 @@ const ContractRead = () => {
           key={ id + '_' + index }
           data={ item }
           onSubmit={ handleMethodFormSubmit }
-          resultComponent={ ContractReadResult }
           methodType="read"
         />
       );
