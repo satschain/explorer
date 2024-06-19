@@ -231,11 +231,12 @@ const AddressPageContent = () => {
         />
       ) }
       <Box
-        fontWeight="medium"
+        fontWeight="bold"
         color="#E75F00"
-        fontSize="xl"
+        fontSize="16px"
         display="flex"
         alignItems="center"
+        letterSpacing={ 1 }
         gap={ 2 }
       >
         { addressQuery?.data?.hash }{ ' ' }

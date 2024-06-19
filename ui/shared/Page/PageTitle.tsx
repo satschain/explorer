@@ -155,7 +155,7 @@ const PageTitle = ({
               <Heading
                 ref={ headingRef }
                 as="h1"
-                size="lg"
+                fontSize="32px"
                 whiteSpace="normal"
                 wordBreak="break-all"
                 style={{
@@ -168,6 +168,8 @@ const PageTitle = ({
                 onMouseEnter={ tooltip.onOpen }
                 onMouseLeave={ tooltip.onClose }
                 onClick={ isMobile ? tooltip.onToggle : undefined }
+                fontWeight="semibold"
+                color="#0D0D0D"
               >
                 <span ref={ textRef }>{ title }</span>
               </Heading>

@@ -49,7 +49,7 @@ const TxsTable = ({
             <Th width="50px" pl={ 5 }>
               <FaRegCircleQuestion fontSize={ 8 }/>
             </Th>
-            <Th minWidth="180px">Txn hash</Th>
+            <Th width="250px">Txn hash(Inscription ID)</Th>
             <Th minWidth="160px">Type</Th>
             <Th minWidth="100">Method</Th>
             { showBlockInfo && <Th minWidth="18%">Block</Th> }
