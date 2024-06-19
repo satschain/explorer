@@ -2,7 +2,7 @@ import type { Route } from 'nextjs-routes';
 
 // equal og:description
 // eslint-disable-next-line max-len
-const DEFAULT_TEMPLATE = 'Satschain Explorer! Seamless Trustless Execution Protocol on Native Bitcoin Chain';
+const DEFAULT_TEMPLATE = 'Satschain Explorer | Visualise smart contracts deployed on native Bitcoin';
 
 // FIXME all page descriptions will be updated later
 const TEMPLATE_MAP: Record<Route['pathname'], string> = {
