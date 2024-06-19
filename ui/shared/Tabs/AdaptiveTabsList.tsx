@@ -55,7 +55,7 @@ const AdaptiveTabsList = (props: Props) => {
       // mx={{ base: '-16px', lg: 'unset' }}
       px={{
         base: '16px',
-        lg: props?.type !== 'parent_tabs' ? '20px' : 'unset',
+        lg: props?.type !== 'parent_tabs' ? '20px' : '',
       }}
       flexWrap="nowrap"
       whiteSpace="nowrap"
@@ -88,6 +88,7 @@ const AdaptiveTabsList = (props: Props) => {
         props.tabListProps({ isSticky, activeTabIndex: props.activeTabIndex }) :
         props.tabListProps) }
       marginTop={ 0 }
+      fontFamily="monas"
     >
       { tabsList.map((tab, index) => {
         if (!tab.id) {

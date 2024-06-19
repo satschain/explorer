@@ -6,7 +6,6 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import type { TabItem } from './types';
 
-import useIsMobile from 'lib/hooks/useIsMobile';
 import isBrowser from 'lib/isBrowser';
 
 import AdaptiveTabsList from './AdaptiveTabsList';
@@ -49,7 +48,6 @@ const TabsWithScroll = ({
   const [ activeTabIndex, setActiveTabIndex ] = useState<number>(
     defaultTabIndex || 0,
   );
-  const isMobile = useIsMobile();
   const [ screenWidth, setScreenWidth ] = React.useState(
     isBrowser() ? window.innerWidth : 0,
   );
@@ -125,7 +123,7 @@ const TabsWithScroll = ({
           </Flex>
         ) : null }
       </Box>
-      <Box paddingTop="20px" padding={ !type && !isMobile ? '20px' : undefined }>
+      <Box padding="20px">
         <TabPanels>
           { tabs.map((tab) => (
             <TabPanel padding={ 0 } key={ tab.id }>

@@ -101,7 +101,7 @@ const Home = () => {
               as='h1'
               size={{ base: 'md', lg: '2xl' }}
               lineHeight={{ base: '32px', lg: '50px' }}
-              fontWeight={600}
+              fontWeight={700}
               background='linear-gradient(90deg, #FFFFFF 28.1%, #E75F00 100%)'
               bgClip='text'
               color='transparent'

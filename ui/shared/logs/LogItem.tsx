@@ -26,13 +26,16 @@ const RowHeader = ({ children, isLoading }: { children: React.ReactNode; isLoadi
 const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash, isLoading }: Props) => {
 
   const borderColor = useColorModeValue('blackAlpha.200', 'whiteAlpha.200');
-  const dataBgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
+  // const dataBgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
 
   const hasTxInfo = type === 'address' && txHash;
 
   return (
     <Grid
-      gridTemplateColumns={{ base: 'minmax(0, 1fr)', lg: '200px minmax(0, 1fr)' }}
+      gridTemplateColumns={{
+        base: 'minmax(0, 1fr)',
+        lg: '200px minmax(0, 1fr)',
+      }}
       gap={{ base: 2, lg: 8 }}
       py={ 8 }
       _notFirst={{
@@ -42,16 +45,29 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
       _first={{
         pt: 0,
       }}
+      color="#1A202C"
     >
       { !decoded && !address.is_verified && type === 'transaction' && (
         <GridItem colSpan={{ base: 1, lg: 2 }}>
           <Alert status="warning" display="inline-table" whiteSpace="normal">
-            To see accurate decoded input data, the contract must be verified.{ space }
-            <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: address.hash } }) }>Verify the contract here</Link>
+            To see accurate decoded input data, the contract must be verified.
+            { space }
+            <Link
+              href={ route({
+                pathname: '/address/[hash]/contract-verification',
+                query: { hash: address.hash },
+              }) }
+            >
+              Verify the contract here
+            </Link>
           </Alert>
         </GridItem>
       ) }
-      { hasTxInfo ? <RowHeader isLoading={ isLoading }>Transaction</RowHeader> : <RowHeader isLoading={ isLoading }>Address</RowHeader> }
+      { hasTxInfo ? (
+        <RowHeader isLoading={ isLoading }>Transaction</RowHeader>
+      ) : (
+        <RowHeader isLoading={ isLoading }>Address</RowHeader>
+      ) }
       <GridItem display="flex" alignItems="center">
         { type === 'address' ? (
           <TxEntity
@@ -72,9 +88,22 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
             <Icon as={ searchIcon } boxSize={ 5 }/>
           </Link>
         </Tooltip> */ }
-        <Skeleton isLoaded={ !isLoading } ml="auto" borderRadius="base" border="1px solid black" background="white">
+        <Skeleton
+          isLoaded={ !isLoading }
+          ml="auto"
+          borderRadius="base"
+          border="1px solid black"
+          background="white"
+        >
           <Tooltip label="Log index">
-            <Button variant="outline" size="sm" fontWeight={ 400 } background="white" border="0px" color="black">
+            <Button
+              variant="outline"
+              size="sm"
+              fontWeight={ 400 }
+              background="white"
+              border="0px"
+              color="black"
+            >
               { index }
             </Button>
           </Tooltip>
@@ -100,7 +129,14 @@ const LogItem = ({ address, index, topics, data, decoded, type, tx_hash: txHash,
         )) }
       </GridItem>
       <RowHeader isLoading={ isLoading }>Data</RowHeader>
-      <Skeleton isLoaded={ !isLoading } p={ 4 } fontSize="sm" borderRadius="md" bgColor={ isLoading ? undefined : dataBgColor }>
+      <Skeleton
+        isLoaded={ !isLoading }
+        px={ 4 }
+        py={ 3 }
+        fontSize="sm"
+        borderRadius="24px"
+        border="1px solid black"
+      >
         { data }
       </Skeleton>
     </Grid>

@@ -81,7 +81,7 @@ const ContractCode = ({ addressHash, noSocket }: Props) => {
     getResourceKey('address', { pathParams: { hash: addressHash } }),
   );
 
-  const backgroundColor = useColorModeValue('gray.1000', '');
+  // const backgroundColor = useColorModeValue('gray.1000', '');
 
   const { data, isPlaceholderData, isError } = useApiQuery('contract', {
     pathParams: { hash: addressHash },
@@ -342,7 +342,7 @@ const ContractCode = ({ addressHash, noSocket }: Props) => {
         <Grid
           templateColumns={{ base: '1fr', lg: '1fr 1fr 1fr' }}
           rowGap={ 4 }
-          backgroundColor={ backgroundColor }
+          // backgroundColor={ backgroundColor }
           border="1px solid"
           borderColor={ useColorModeValue('', '#7272728A') }
           borderRadius="3xl"

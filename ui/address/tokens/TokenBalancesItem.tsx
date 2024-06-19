@@ -1,14 +1,12 @@
-import { Box, Flex, Skeleton, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
 
 const TokenBalancesItem = ({ name, value, isLoading }: {name: string; value: string; isLoading: boolean }) => {
 
-  const bgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
-
   return (
-    <Flex p={ 5 } bgColor={ bgColor } borderRadius="16px" alignItems="center">
+    <Flex p={ 5 } borderRadius="16px" alignItems="center" border="1px solid black">
       <IconSvg name="wallet" boxSize="30px" mr={ 3 } flexShrink={ 0 }/>
       <Box>
         <Text variant="secondary" fontSize="xs">{ name }</Text>

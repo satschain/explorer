@@ -36,13 +36,10 @@ const RawDataSnippet = ({
   contentProps,
 }: Props) => {
   // see issue in theme/components/Textarea.ts
-  const bgColor = useColorModeValue('gray.1000', '#1a1b1b');
   return (
     <Box className={ className } as="section" title={ title }>
       { (title || rightSlot || showCopy) && (
         <Flex
-          // justifyContent={title ? 'space-between' : 'flex-end'}
-
           alignItems="center"
           mb={ 4 }
         >
@@ -65,7 +62,7 @@ const RawDataSnippet = ({
       { beforeSlot }
       <Skeleton
         p={ 5 }
-        bgColor={ isLoading ? 'inherit' : bgColor }
+        border="1px solid black"
         maxH={ textareaMaxHeight || '400px' }
         minH={ isLoading ? '200px' : undefined }
         color={ useColorModeValue("black_secondary", "#D4D4D4") }

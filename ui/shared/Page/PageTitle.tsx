@@ -168,8 +168,10 @@ const PageTitle = ({
                 onMouseEnter={ tooltip.onOpen }
                 onMouseLeave={ tooltip.onClose }
                 onClick={ isMobile ? tooltip.onToggle : undefined }
-                fontWeight="semibold"
+                fontWeight="bold"
                 color="#0D0D0D"
+                fontFamily="monas"
+
               >
                 <span ref={ textRef }>{ title }</span>
               </Heading>
