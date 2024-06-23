@@ -12,6 +12,16 @@ interface Params {
   isOptional: boolean;
 }
 
+const isBitcoinAddress = (address: string) => {
+  if (!address) {
+    return false;
+  }
+  if (address.startsWith('bc1') || address.startsWith('tb1') || address.startsWith('ac1q')) {
+    return true;
+  }
+  return false;
+};
+
 export default function useValidateField({ isOptional, argType, argTypeMatchInt }: Params) {
 
   const bytesMatch = React.useMemo(() => {
@@ -26,7 +36,7 @@ export default function useValidateField({ isOptional, argType, argTypeMatchInt 
     }
 
     if (argType === 'address') {
-      if (typeof value !== 'string' || !isAddress(value)) {
+      if (typeof value !== 'string' || (!isAddress(value) && !isBitcoinAddress(value))) {
         return 'Invalid address format';
       }
 
@@ -37,7 +47,7 @@ export default function useValidateField({ isOptional, argType, argTypeMatchInt 
       }
 
       // check if address checksum is valid
-      return getAddress(value) === value ? true : 'Invalid address checksum';
+      return getAddress(value) === value || isBitcoinAddress(value) ? true : 'Invalid address checksum';
     }
 
     if (argTypeMatchInt) {
