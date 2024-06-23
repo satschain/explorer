@@ -94,9 +94,10 @@ class Transaction {
 }
 type Props = {
   byteCode: string;
+  address: string;
 };
 
-const hashEncodingHandler = async({ byteCode }: Props) => {
+const hashEncodingHandler = async({ byteCode, address }: Props) => {
   const id = 0;
   const generator = UUID(id);
   const uuid = generator.uuid();
@@ -108,7 +109,7 @@ const hashEncodingHandler = async({ byteCode }: Props) => {
   initialPayload.fee_option = 0;
   initialPayload.gas_price = 0;
   initialPayload.gas_limit = 0x30000000;
-  initialPayload.to_addr = stringToUnit8Array('bc1qd7kqgm7atn8c9j02fc5vl4hdmw6ns85c000000');
+  initialPayload.to_addr = stringToUnit8Array(address);
   initialPayload.value = 0;
   initialPayload.data = hexStringToUint8Array(byteCode);
   initialPayload.from_addr = stringToUnit8Array(localStorage.getItem('address') || '');

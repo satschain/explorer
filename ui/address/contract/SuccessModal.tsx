@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { FaRegCopy } from 'react-icons/fa';
+import { TiPlusOutline } from 'react-icons/ti';
 
 import { fetchContractAddress } from './contract.service';
 
@@ -62,7 +63,7 @@ const SuccessModal = ({ open, inscriptionId, setOpen, rlp }: Props) => {
   }, [ rlp, toast, inscriptionId ]);
   return (
     <Modal isOpen={ open } onClose={ handleClose }>
-      <ModalContent>
+      <ModalContent width="450px" borderRadius="40px" border="1px solid black">
         <ModalCloseButton/>
         <ModalBody fontWeight={ 700 } fontSize={ 20 }>
           Contract Inscribed successfully.
@@ -90,8 +91,19 @@ const SuccessModal = ({ open, inscriptionId, setOpen, rlp }: Props) => {
           <FaRegCopy className="cursor-pointer" onClick={ copyContractId }/>
         </ModalBody>
         <ModalFooter display="flex" justifyContent="end">
-          <Button colorScheme="blue" onClick={ handleClose }>
+          <Button
+            onClick={ handleClose }
+            borderRadius="40px"
+            color="balck"
+            background="white"
+            border="1px solid black"
+            fontSize="16px"
+            padding="2px 16px"
+            gap={ 2 }
+            _hover={{ background: 'white' }}
+          >
             Ok
+            <TiPlusOutline color="#E75F00"/>
           </Button>
         </ModalFooter>
       </ModalContent>

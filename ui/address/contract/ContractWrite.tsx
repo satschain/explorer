@@ -83,7 +83,10 @@ const ContractWrite = () => {
       ).encodeABI();
       setByteCode(hash);
 
-      const newEncodedString: any = await hashEncodingHandler({ byteCode: hash });
+      const newEncodedString: any = await hashEncodingHandler({
+        byteCode: hash,
+        address: addressHash,
+      });
       if (typeof newEncodedString === 'string') {
         setEncodedData(newEncodedString);
         setOpen(true);
