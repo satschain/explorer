@@ -94,7 +94,7 @@ const Header = () => {
               ) }
             </Button>
           </Box>
-          <Settings/>
+          { /* <Settings/>  */ }
         </Box>
         { /* eslint-disable-next-line react/jsx-no-bind */ }
         <Box gap={ 3 } alignItems="center" display={{ md: 'none', base: 'flex' }}>

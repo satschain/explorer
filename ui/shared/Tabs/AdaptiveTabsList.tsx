@@ -55,7 +55,7 @@ const AdaptiveTabsList = (props: Props) => {
       // mx={{ base: '-16px', lg: 'unset' }}
       px={{
         base: '16px',
-        lg: props?.type !== 'parent_tabs' ? '20px' : 'unset',
+        lg: props?.type !== 'parent_tabs' ? '20px' : '',
       }}
       flexWrap="nowrap"
       whiteSpace="nowrap"
@@ -88,6 +88,7 @@ const AdaptiveTabsList = (props: Props) => {
         props.tabListProps({ isSticky, activeTabIndex: props.activeTabIndex }) :
         props.tabListProps) }
       marginTop={ 0 }
+      fontFamily="monas"
     >
       { tabsList.map((tab, index) => {
         if (!tab.id) {
@@ -110,14 +111,12 @@ const AdaptiveTabsList = (props: Props) => {
           <Tab
             key={ tab.id }
             ref={ tabsRefs[index] }
-            // { ...(index < tabsCut ? {} : hiddenItemStyles) }
             scrollSnapAlign="start"
             flexShrink={ 0 }
             borderRadius={ props?.type !== 'parent_tabs' ? '25px' : '32px' }
             fontSize="16px"
-            paddingX="28px"
-            paddingY="16px"
-            fontWeight={ props?.type !== 'parent_tabs' ? 'medium' : 'semibold' }
+            padding="14px 20px"
+            fontWeight="400"
             color={ color }
             background={ bgColor }
             _selected={{ background: selectedBgColor, color: selectedColor }}
@@ -126,6 +125,9 @@ const AdaptiveTabsList = (props: Props) => {
                 color: 'inherit',
               },
             }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
           >
             { typeof tab.title === 'function' ? tab.title() : tab.title }
             <TabCounter count={ tab.count }/>

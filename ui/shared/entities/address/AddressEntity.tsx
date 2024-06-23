@@ -107,7 +107,7 @@ const Content = chakra((props: ContentProps) => {
     );
 
     return (
-      <Tooltip label={ label } maxW={{ base: '100vw', lg: '400px' }} color="red">
+      <Tooltip label={ label } maxW={{ base: '100vw', lg: '400px' }}>
         <Skeleton
           isLoaded={ !props.isLoading }
           overflow="hidden"

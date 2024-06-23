@@ -22,6 +22,7 @@ import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
 import Layout from 'ui/shared/layout/Layout';
 import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
+import '../styles/fonts.css';
 
 import 'lib/setLocale';
 // import 'focus-visible/dist/focus-visible';
@@ -57,21 +58,23 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ChakraProvider theme={ theme } cookies={ pageProps.cookies }>
-      <AppErrorBoundary
-        { ...ERROR_SCREEN_STYLES }
-        onError={ handleError }
-      >
+      <AppErrorBoundary { ...ERROR_SCREEN_STYLES } onError={ handleError }>
         <Web3ModalProvider>
           <AppContextProvider pageProps={ pageProps }>
             <QueryClientProvider client={ queryClient }>
               <GrowthBookProvider growthbook={ growthBook }>
                 <ScrollDirectionProvider>
-                  <SocketProvider url={ `${ config.api.socket }${ config.api.basePath }/socket/v2` }>
+                  <SocketProvider
+                    url={ `${ config.api.socket }${ config.api.basePath }/socket/v2` }
+                  >
                     { getLayout(<Component { ...pageProps }/>) }
                   </SocketProvider>
                 </ScrollDirectionProvider>
               </GrowthBookProvider>
-              <ReactQueryDevtools buttonPosition="bottom-left" position="left"/>
+              <ReactQueryDevtools
+                buttonPosition="bottom-left"
+                position="left"
+              />
               <GoogleAnalytics/>
             </QueryClientProvider>
           </AppContextProvider>

@@ -102,8 +102,10 @@ const EntityTags = ({ className, data, tagsBefore = [], tagsAfter = [], isLoadin
             isLoading={ isLoading }
             isTruncated
             maxW={{ base: '115px', lg: 'initial' }}
-            colorScheme={ 'colorScheme' in tag ? tag.colorScheme : 'gray' }
-            variant={ 'variant' in tag ? tag.variant : 'subtle' }
+            background="#F4F4F4"
+            borderRadius="8px"
+            border="0.94px solid #FFFFFF"
+            padding="8px 18px"
           >
             { tag.display_name }
           </Tag>

@@ -193,7 +193,7 @@ const AddressPageContent = () => {
     />
   );
 
-  const content = (addressQuery.isError || addressQuery.isDegradedData) ? null : <RoutedTabs tabs={ tabs } tabListProps={{ mt: 8 }}/>;
+  const content = (addressQuery.isError || addressQuery.isDegradedData) ? null : <RoutedTabs tabs={ tabs } tabListProps={{ mt: 8 }} type="parent_tabs"/>;
 
   const backLink = React.useMemo(() => {
     const hasGoBackLink = appProps.referrer && appProps.referrer.includes('/accounts');
@@ -231,12 +231,14 @@ const AddressPageContent = () => {
         />
       ) }
       <Box
-        fontWeight="medium"
+        fontWeight="bold"
         color="#E75F00"
-        fontSize="xl"
+        fontSize="16px"
         display="flex"
         alignItems="center"
+        letterSpacing={ 1 }
         gap={ 2 }
+        fontFamily="monas"
       >
         { addressQuery?.data?.hash }{ ' ' }
         <CopyElement address={ addressQuery?.data?.hash }/>

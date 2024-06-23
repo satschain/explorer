@@ -46,7 +46,7 @@ const TokenBalances = () => {
     '';
 
   return (
-    <Flex columnGap={ 3 } rowGap={ 3 } mt={{ base: '6px', lg: 0 }} flexDirection={{ base: 'column', lg: 'row' }}>
+    <Flex columnGap={ 3 } rowGap={ 3 } my={{ base: '6px', lg: 4 }} flexDirection={{ base: 'column', lg: 'row' }}>
       <TokenBalancesItem
         name="Net Worth"
         value={ addressData?.exchange_rate ? `${ prefix }$${ totalUsd.toFormat(2) } USD` : 'N/A' }
