@@ -125,6 +125,7 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
         const data: any = await response.json();
         if (data?.data?.files?.[0]?.status !== 'pending') {
           setLoading(false);
+          handleClose();
           setInscriptionId(data?.data?.files?.[0]?.inscriptionId ?? '');
           addContractHandler(data?.data?.files?.[0]?.inscriptionId ?? '');
         } else {
@@ -135,7 +136,6 @@ const InscribeModal = ({ open, setOpen, encodedData, setOpenSuccessModal, setIns
       }
     } catch (error) {
       toast({ description: 'Some error occurred. Please try again!', status: 'error' });
-    } finally {
       handleClose();
     }
   };
