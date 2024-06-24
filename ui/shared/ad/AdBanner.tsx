@@ -5,11 +5,11 @@ import config from 'configs/app';
 import { useAppContext } from 'lib/contexts/app';
 import * as cookies from 'lib/cookies';
 
-import AdbutlerBanner from './AdbutlerBanner';
-import CoinzillaBanner from './CoinzillaBanner';
-import GetitBanner from './GetitBanner';
-import HypeBanner from './HypeBanner';
-import SliseBanner from './SliseBanner';
+// import AdbutlerBanner from './AdbutlerBanner';
+// import CoinzillaBanner from './CoinzillaBanner';
+// import GetitBanner from './GetitBanner';
+// import HypeBanner from './HypeBanner';
+// import SliseBanner from './SliseBanner';
 
 const feature = config.features.adsBanner;
 
@@ -23,18 +23,7 @@ const AdBanner = ({ className, isLoading }: { className?: string; isLoading?: bo
   }
 
   const content = (() => {
-    switch (provider) {
-      case 'adbutler':
-        return <AdbutlerBanner/>;
-      case 'coinzilla':
-        return <CoinzillaBanner/>;
-      case 'getit':
-        return <GetitBanner/>;
-      case 'hype':
-        return <HypeBanner/>;
-      case 'slise':
-        return <SliseBanner/>;
-    }
+    return null;
   })();
 
   return (
