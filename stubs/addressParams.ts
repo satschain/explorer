@@ -1,6 +1,6 @@
 import type { AddressParam } from 'types/api/addressParams';
 
-export const ADDRESS_HASH = 'ac1q2gu35g5c9752r4yzvntfau763gcv6pff000000';
+export const ADDRESS_HASH = '0xac1q2gu35g5c9752r4yzvntfau763gcv6pff000000';
 
 export const ADDRESS_PARAMS: AddressParam = {
   hash: ADDRESS_HASH,
