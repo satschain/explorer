@@ -41,7 +41,17 @@ const TopBarStats = () => {
   if (isError) {
     return <div/>;
   }
-
+  if (config.features.gasTracker.isEnabled) {
+    return (
+      <Flex
+        alignItems="center"
+        fontSize="xs"
+        fontWeight={ 500 }
+      >
+        Satschain Explorer
+      </Flex>
+    );
+  }
   return (
     <Flex
       alignItems="center"

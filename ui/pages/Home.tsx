@@ -38,30 +38,6 @@ const Home = () => {
 
   const listBgColor = useColorModeValue('white', 'blue.1000');
 
-  const fetchInscriptionData = async(inscriptionId: string) => {
-    if (inscriptionId?.length !== 66) return;
-    try {
-      const response = await fetch(`https://explorer-api.satschain.xyz/get-contract-addresses-from-inscription-id?inscription_id=${ inscriptionId }`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setIsModalOpen({
-          show: true,
-          data: {
-            contractAddress: (data as any)?.contractAddress,
-          }
-        })
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('error', error);
-    }
-  };
-
   const onModalClose = () => {
     setIsModalOpen({
       show: false,
@@ -117,7 +93,7 @@ const Home = () => {
               )}
             </Box>
           </Flex>
-          <SearchBar isHomepage onSubmit={fetchInscriptionData} />
+          <SearchBar isHomepage/>
         </Box>
       </Box>
       <Box

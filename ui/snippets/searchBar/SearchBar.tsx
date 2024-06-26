@@ -33,13 +33,11 @@ import useQuickSearchQuery from './useQuickSearchQuery';
 
 type Props = {
   isHomepage?: boolean;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  onSubmit?: Function;
 }
 
 const SCROLL_CONTAINER_ID = 'search_bar_popover_content';
 
-const SearchBar = ({ isHomepage, onSubmit }: Props) => {
+const SearchBar = ({ isHomepage }: Props) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const inputRef = React.useRef<HTMLFormElement>(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
@@ -69,10 +67,6 @@ const SearchBar = ({ isHomepage, onSubmit }: Props) => {
 
   const handleSubmit = React.useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (onSubmit) {
-      onSubmit(searchTerm);
-      return;
-    }
     if (searchTerm) {
       const url = route({ pathname: '/search-results', query: { q: searchTerm } });
       mixpanel.logEvent(mixpanel.EventTypes.SEARCH_QUERY, {
@@ -83,7 +77,7 @@ const SearchBar = ({ isHomepage, onSubmit }: Props) => {
       saveToRecentKeywords(searchTerm);
       router.push({ pathname: '/search-results', query: { q: searchTerm } }, undefined, { shallow: true });
     }
-  }, [ onSubmit, pathname, router, searchTerm ]);
+  }, [ pathname, router, searchTerm ]);
 
   const handleFocus = React.useCallback(() => {
     onOpen();
