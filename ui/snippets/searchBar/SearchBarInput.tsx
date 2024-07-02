@@ -118,7 +118,7 @@ const SearchBarInput = (
           placeholder={
             isMobile ?
               'Search by address / ... ' :
-              'Search by address, Tnx hash, Block or Token... '
+              'Search by address, Txn hash, Block or Token... '
           }
           onChange={ handleChange }
           border={ isHomepage ? 'none' : '2px solid' }
