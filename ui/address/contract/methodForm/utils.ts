@@ -24,10 +24,8 @@ export function transformFormDataToMethodArgs(formData: ContractMethodFormFields
 
   for (const field in formData) {
     const value = formData[field];
-    if (value !== undefined) {
-      const convertedValue = convert_btc_address_to_evm(value);
-      _set(result, field.replaceAll(':', '.'), convertedValue);
-    }
+    const convertedValue = value ? convert_btc_address_to_evm(value) : undefined;
+    _set(result, field.replaceAll(':', '.'), convertedValue);
   }
 
   return filterOurEmptyItems(result);

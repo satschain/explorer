@@ -106,6 +106,7 @@ const ContractMethodFieldInputArray = ({ data, level, basePath, onAddClick, onRe
               onAddClick={ index === registeredIndices.length - 1 ? handleAddButtonClick : undefined }
               onRemoveClick={ registeredIndices.length > 1 ? handleRemoveButtonClick : undefined }
               index={ registeredIndex }
+              isOptional={ registeredIndices.length === 1 }
               isDisabled={ isDisabled }
             />
           );
@@ -117,7 +118,7 @@ const ContractMethodFieldInputArray = ({ data, level, basePath, onAddClick, onRe
   // primitive value array
   return (
     <Flex flexDir={{ base: 'column', md: 'row' }} alignItems="flex-start" columnGap={ 3 } px="6px">
-      <ContractMethodFieldLabel data={ data } level={ level }/>
+      <ContractMethodFieldLabel data={ data } level={ level } isOptional={ registeredIndices.length === 1 }/>
       <Flex flexDir="column" rowGap={ 1 } w="100%">
         { registeredIndices.map((registeredIndex, index) => {
           const itemData = getItemData(index);
@@ -131,6 +132,7 @@ const ContractMethodFieldInputArray = ({ data, level, basePath, onAddClick, onRe
                 level={ level }
                 px={ 0 }
                 isDisabled={ isDisabled }
+                isOptional={ registeredIndices.length === 1 }
               />
               { registeredIndices.length > 1 &&
                 <ContractMethodArrayButton index={ registeredIndex } onClick={ handleRemoveButtonClick } type="remove" my="6px"/> }
